@@ -1,25 +1,24 @@
 <?php
-
-$DB_DSN = "localhost";
-$DB_USER = "root";
-$DB_PASSWORD = "rootroot";
-
-try {
+function connexion(){
+    $DB_DSN = "localhost";
+    $DB_USER = "root";
+    $DB_PASSWORD = "rootroot";
+    try {
     $conn = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
     // set the PDO error mode to exception
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "CREATE DATABASE db_camagru; USE db_camagru;";
-    //use exec() because no results are returned
+    $sql = "CREATE DATABASE IF NOT EXISTS db_camagru; USE db_camagru;";
     $conn->exec($sql);
-    echo "Database created successfully<br>";
+    echo "Connection successful<br>";
     return ($conn);
 }
 catch(PDOException $e){
-    echo $sql . "<br>" . $e->getMessage();
+    echo "Connection failed<br>" . $e->getMessage();
+}
 }
 
 function create_tables($conn){
-    $sql = "CREATE TABLE IF NOT EXISTS `user` (`id` int(11) NOT NULL AUTO_INCREMENT, `login` text NOT NULL, `mail` text NOT NULL, PRIMARY KEY (`id`));";
+    $sql = "CREATE TABLE IF NOT EXISTS `user` (`id` int(11) NOT NULL AUTO_INCREMENT, `login` text NOT NULL, `mail` text NOT NULL, `password` text NOT NULL, PRIMARY KEY (`id`));";
     $conn->query($sql);
 }
 
