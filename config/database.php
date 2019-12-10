@@ -1,23 +1,21 @@
 <?php
 
-function connexion(){
-$servername = "localhost";
-$username = "root";
-$password = "rootroot";
+$DB_DSN = "localhost";
+$DB_USER = "root";
+$DB_PASSWORD = "rootroot";
 
-    try {
-        $conn = new PDO("mysql:host=$servername", $username, $password);
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "CREATE DATABASE camagru; USE camagru;";
-        //use exec() because no results are returned
-        $conn->exec($sql);
-        echo "Database created successfully<br>";
-        return ($conn);
-    }
-    catch(PDOException $e){
-        echo $sql . "<br>" . $e->getMessage();
-    }
+try {
+    $conn = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "CREATE DATABASE db_camagru; USE db_camagru;";
+    //use exec() because no results are returned
+    $conn->exec($sql);
+    echo "Database created successfully<br>";
+    return ($conn);
+}
+catch(PDOException $e){
+    echo $sql . "<br>" . $e->getMessage();
 }
 
 function create_tables($conn){
