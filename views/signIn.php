@@ -7,7 +7,7 @@
 <input name="login" type="text" placeholder="Login"/></br>
 <input name="password" type="password" placeholder="Password"/></br>
 <input name="submit" type="submit" value="Sign in"></br>
-<a href="#">Forgot your password ?</a>
+<a href="/controler/forgot-pass.php">Forgot your password ?</a>
 
 </form>
 
