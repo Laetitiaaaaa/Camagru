@@ -5,29 +5,29 @@ session_start();
 
 if (isset($_POST) && isset($_POST['login']) && isset($_POST['mail']) && isset($_POST['password'])){
     $suOk = 0;
-    $login = $_POST['login'];
-    $mail = $_POST['mail'];
-    $password = $_POST['password'];
-    $resLog = isLogin($login);
-    $resMail = isMail($mail);
-    $resPasswd = checkPasswd($password);
-    if ($resLog == false && $resMail == false && $resPasswd == true){
-        if ($login != "" && $mail != "" && $password != ""){        
+    if ($login != "" && $mail != "" && $password != ""){        
+        $login = $_POST['login'];
+        $mail = $_POST['mail'];
+        $password = $_POST['password'];
+        $resLog = isLogin($login);
+        $resMail = isMail($mail);
+        $resPasswd = checkPasswd($password);
+        if ($resLog == false && $resMail == false && $resPasswd == true){
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = $mail;
             insert_user($login, $mail, $password);
             $suOk = 1;
         }
-    }
-    else if ($resLog == true || $resMail == true || $resPasswd == false){
-        if ($resLog == true){
-             echo "Login already exists.</br>";
+        else if ($resLog == true || $resMail == true || $resPasswd == false){
+            if ($resLog == true){
+                 echo "Login already exists.</br>";
+                }
+            if ($resMail == true){
+                echo "Mail already exists.</br>";
             }
-        if ($resMail == true){
-            echo "Mail already exists.</br>";
-        }
-        if ($resPasswd == false){
-            echo "Bad password.</br>";
+            if ($resPasswd == false){
+                echo "Bad password.</br>";
+            }
         }
     }
 }
