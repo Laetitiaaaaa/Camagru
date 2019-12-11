@@ -4,14 +4,69 @@ include('config/database.php');
 function insert_user($login, $mail, $password){
     $conn = connexion();
     if ($login != "" && $mail != "" && $password != ""){
-        $sql = "INSERT INTO `user`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
+        $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
         $conn->query($sql);
+        $conn = null;
         var_dump("user inserted !");
     }
     else{
-        var_dump("problem with user insert");
+        var_dump("no user insert");
     }
+}
+
+function isLogin($login){
+    $conn = connexion();
+    $sql = "SELECT `login` FROM `user_sub` WHERE `login` = '{$login}' UNION SELECT `login` FROM `user` WHERE `login` = '{$login}';";
+    $req = $conn->query($sql);
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
     $conn = null;
+    if ($data){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function isMail($mail){
+    $conn = connexion();
+    $sql = "SELECT `mail` FROM `user_sub` WHERE `mail` = '{$mail}' UNION SELECT `mail` FROM `user` WHERE `mail` = '{$mail}';";
+    $req = $conn->query($sql);
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    $conn = null;
+    if ($data){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function checkPasswd($password){
+    $pattern = "/[a-z]+/";
+    if (preg_match($pattern, $password) == 1){
+        $pattern = "/[0-9]+/";
+        if (preg_match($pattern, $password) == 1){
+            $pattern = "/[A-Z]+/";
+            if (preg_match($pattern, $password) == 1){
+                if (strlen($password) > 7){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    else{
+        return false;
+    }
 }
 
 ?>

@@ -1,3 +1,0 @@
-footer</br>
-</body>
-</hmtl>
