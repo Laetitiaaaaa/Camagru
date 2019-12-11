@@ -1,17 +1,12 @@
 <?php
-include('config/database.php');
+include('../config/database.php');
 
 function insert_user($login, $mail, $password){
     $conn = connexion();
-    if ($login != "" && $mail != "" && $password != ""){
-        $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
-        $conn->query($sql);
-        $conn = null;
-        var_dump("user inserted !");
-    }
-    else{
-        var_dump("no user insert");
-    }
+    $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
+    $conn->query($sql);
+    $conn = null;
+    var_dump("user inserted !");
 }
 
 function isLogin($login){

@@ -1,6 +1,6 @@
 <?php include('header.php');?>
 
-<form name="signup" method="post" action="index.php">
+<form name="signup" method="post" action="../controler/signUp.php">
 
 <input name="login" type="text" placeholder="Login"/></br>
 <input name="mail" type="email" placeholder="Mail address"/></br> 
