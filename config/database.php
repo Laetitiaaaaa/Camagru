@@ -11,10 +11,10 @@ function connexion(){
     $conn->exec($sql);
     echo "Connection successful<br>";
     return ($conn);
-}
-catch(PDOException $e){
-    echo "Connection failed<br>" . $e->getMessage();
-}
+    }
+    catch(PDOException $e){
+        echo "Connection failed<br>" . $e->getMessage();
+    }
 }
 
 function create_tables($conn){
