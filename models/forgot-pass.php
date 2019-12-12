@@ -20,20 +20,21 @@ function getUserwMail($mail){
     $sql = "SELECT * FROM `user` WHERE `mail` = '{$mail}';";
     $req = $conn->query($sql);
     $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    $conn = null;
     return ($data[0]);
 }
 
 function insertNum($mail, $num){
     $conn = connexion();
     $sql = "UPDATE `user` SET `num` = '{$num}' WHERE `mail` = '{$mail}';";
-    $conn->query();
+    $conn->query($sql);
     $conn = null;
     var_dump("num user inserted");
 }
 
 function sendPass($mail){
     if (isMail($mail) == false){
-        return false;
+        var_dump("Error: mail doesn't exist.");
     }
     else{
         $num = rand(0, 1000000);
@@ -46,7 +47,7 @@ function sendPass($mail){
         $headers .= "From: Camagru Team <no_reply@camagru.com>"."\r\n";
         $message = "
         <h1>No worries $login!</h1>
-        <p>To change your password, click <a href='http://localhost:8080/controler/change-passwd.php?log=$login&n=$num'>here</a>.</p>
+        <p>To change your password, click <a href='http://localhost:8080/controler/changePass.php?log=$login&n=$num'>here</a>.</p>
         ";
         $chpass = mail($mail, $subject, $message, $headers);
         if ($chpass == true){
