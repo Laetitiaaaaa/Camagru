@@ -20,7 +20,18 @@ function save_cam($img, $login){
 function put_image($filename, $filtername){
     $src = imagecreatefrompng($filtername);
     $dest = imagecreatefrompng($filename);
-    imagecopy($dest, $src, 300, 200, 0, 0, 500, 500);
+    if ($filtername == '../filters/dino.png'){
+        imagecopy($dest, $src, 300, 200, 0, 0, 500, 500);
+    }
+    else if ($filtername == '../filters/coeurs.png'){
+        imagecopy($dest, $src, 0, 0, 50, 50, 500, 500);
+    }
+    else if ($filtername == '../filters/eveuh.png'){
+        imagecopy($dest, $src, 0, 180, 40, 0, 500, 500);
+    }
+    else if ($filtername == '../filters/fox.png'){
+        imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
+    }
     imagepng($dest, $filename);
 }
 
