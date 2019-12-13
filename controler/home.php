@@ -11,7 +11,7 @@ if (isset($_SESSION) && isset($_SESSION['logon'])){
                 $tab = save_cam($img, $login);
                 if ($tab[1] != false){
                     $filename = $tab[0];
-                    $filtername = '../filters/fox.png';
+                    $filtername = '../filters/dino.png';
                     put_image($filename, $filtername);
                 }
             }
