@@ -77,7 +77,14 @@ function changeFilter() {
 httpRequest.onreadystatechange = display_picture;
 
 function display_picture(){
-  alert('ok');
+  if (httpRequest.readyState === XMLHttpRequest.DONE){
+    if (httpRequest.status === 200){
+      alert('ok');
+    }
+    else{
+      alert('pb request');
+    }
+  }
 }
 
 startbutton.addEventListener('click', (ev) => {
