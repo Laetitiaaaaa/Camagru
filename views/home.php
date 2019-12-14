@@ -1,25 +1,29 @@
 <?php include('header.php');?>
 
-  <select name="filter" id="filter" onchange="changeFilter()">
-    <option value="dino">Dino</option>
-    <option value="heart">Heart balloons</option>
-    <option value="eve">Eve (Wall-E)</option>
-    <option value="fox">Fox</option>
-  </select>
+<div style="border:3px solid pink;">
+    <select name="filter" id="filter" onchange="changeFilter()" style="display:block;">
+        <option value="dino">Dino</option>
+        <option value="heart">Heart balloons</option>
+        <option value="eve">Eve (Wall-E)</option>
+        <option value="fox">Fox</option>
+    </select>
+    <div style="display:inline-block; border:3px solid blue;width: 50%;">
+    <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
+        <video id="video" autoplay style="width:100%;"></video>
+        <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; width:52%;">
+    </div>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <form enctype="multipart/form-data" method="post" action="/controler/home.php">
 
-<div id="divideo" style="border: 3px solid black; width:50%; position: relative;">
-    <video id="video" autoplay style="width:100%;"></video>
-    <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-10; bottom:-15; width:52%;">
+    <input id="filterpic" type="text" name="filterpic" value="dino" style="display:none;">
+    <input id="filepic" type="text" name="picture" style="display:none;">
+    <input id="startbutton" type="submit" name="submit" value="Take picture">
+
+    </form>
+    </div>
+    <div id="preview" style="border:3px solid grey; display: inline-block; vertical-align: top;">
+    </div>
 </div>
-<canvas id="canvas" style="display:none;"></canvas>
-
-<form enctype="multipart/form-data" method="post" action="/controler/home.php">
-
-<input id="filterpic" type="text" name="filterpic" value="dino" style="display:none;">
-<input id="filepic" type="text" name="picture" style="display:none;">
-<input id="startbutton" type="submit" name="submit" value="Take picture">
-
-</form>
 
 <script>
 
@@ -43,30 +47,28 @@ navigator.mediaDevices.getUserMedia(constraints)
 
 function changeFilter() {
   var choice = document.getElementById('filter').value;
-  // console.log(select);
-  console.log(choice);
   if (choice == 'dino'){
     filterpic.setAttribute('value', 'dino');
     filter.setAttribute('alt', 'dino');
-    filter.setAttribute('style', 'position:absolute; right:-10; bottom:-15; width:52%;');
+    filter.setAttribute('style', 'position:absolute; right:1%; bottom:1%; width:52%;');
     filter.setAttribute('src', '../filters/dino.png');
   }
   else if (choice == 'heart'){
     filterpic.setAttribute('value', 'heart');
     filter.setAttribute('alt', 'heart');
-    filter.setAttribute('style', 'position:absolute; top:13; left:5; width:30%;');
+    filter.setAttribute('style', 'position:absolute; top:2.5%; left:1%; width:30%;');
     filter.setAttribute('src', '../filters/coeurs.png');
   }
   else if (choice == 'eve'){
     filterpic.setAttribute('value', 'eve');
     filter.setAttribute('alt', 'eve');
-    filter.setAttribute('style', 'position:absolute; left:-35; bottom:-23; width:52%;');
+    filter.setAttribute('style', 'position:absolute; left:-6%; bottom:-5.5%; width:52%;');
     filter.setAttribute('src', '../filters/eveuh.png');
   }
   else if (choice == 'fox'){
     filterpic.setAttribute('value', 'fox');
     filter.setAttribute('alt', 'fox');
-    filter.setAttribute('style', 'position:absolute; right:6; bottom:-2; height:52%;');
+    filter.setAttribute('style', 'position:absolute; right:1%; bottom:-0.7%; height:60%;');
     filter.setAttribute('src', '../filters/fox.png');
   }
 }
@@ -80,7 +82,11 @@ function takepicture(){
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     var data = canvas.toDataURL();
-    pic.setAttribute('value', data);    
+    pic.setAttribute('value', data);
+
+    var img = new Image();
+    img.src = data;
+    document.getElementById('preview').appendChild(img);
 }
 
 </script>
