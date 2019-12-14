@@ -7,13 +7,11 @@
     <option value="fox">Fox</option>
   </select>
 
-<div style="border:3px solid purple;">
-<div id="divideo" style="border: 3px solid black; width:50%;">
-  <video id="video" autoplay style="width:100%;"></video>
+<div id="divideo" style="border: 3px solid black; width:50%; position: relative;">
+    <video id="video" autoplay style="width:100%;"></video>
+    <img id="putfilter" src="../filters/dino.png" alt="dino" width="50%" style="position:absolute; right:0; bottom:0;">
 </div>
-<!-- <img src="../filters/dino.png" alt="dino" style="position:relative; top:50px; left: 100px;"> -->
 <canvas id="canvas" style="display:none;"></canvas>
-<div>
 
 <form enctype="multipart/form-data" method="post" action="/controler/home.php">
 
@@ -25,6 +23,7 @@
 <script>
 
 var constraints = { audio: false, video: true };
+var filter = document.querySelector('#putfilter');
 var select = document.querySelector('#filter');
 var video = document.querySelector('video');
 var canvas = document.querySelector('#canvas');
@@ -40,11 +39,25 @@ navigator.mediaDevices.getUserMedia(constraints)
 })
 .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
 
-
+select.addEventListener('click', (ev) => {
+  choice = select.value;
+  if(choice == 'dino'){
+    filter.setAttribute('src', '../filters/dino.png');
+  }
+  else if (choice == 'heart'){
+    filter.setAttribute('src', '../filters/coeurs.png');
+  }
+  else if (choice == 'eve'){
+    filter.setAttribute('src', '../filters/eveuh.png');
+  }
+  else if (choice == 'fox'){
+    filter.setAttribute('src', '../filters/fox.png');
+  }
+});
 
 startbutton.addEventListener('click', (ev) => {
   takepicture();
-}, false);
+});
 
 function takepicture(){
     canvas.width = video.videoWidth;
