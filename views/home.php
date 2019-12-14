@@ -9,12 +9,13 @@
 
 <div id="divideo" style="border: 3px solid black; width:50%; position: relative;">
     <video id="video" autoplay style="width:100%;"></video>
-    <img id="putfilter" src="../filters/dino.png" alt="dino" width="50%" style="position:absolute; right:0; bottom:0;">
+    <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-10; bottom:-15; width:52%;">
 </div>
 <canvas id="canvas" style="display:none;"></canvas>
 
 <form enctype="multipart/form-data" method="post" action="/controler/home.php">
 
+<input id="filterpic" type="text" name="filterpic" value="dino" style="display:none;">
 <input id="filepic" type="text" name="picture" style="display:none;">
 <input id="startbutton" type="submit" name="submit" value="Take picture">
 
@@ -23,6 +24,7 @@
 <script>
 
 var constraints = { audio: false, video: true };
+var filterpic = document.querySelector('#filterpic');
 var filter = document.querySelector('#putfilter');
 var select = document.querySelector('#filter');
 var video = document.querySelector('video');
@@ -42,15 +44,21 @@ navigator.mediaDevices.getUserMedia(constraints)
 select.addEventListener('click', (ev) => {
   choice = select.value;
   if(choice == 'dino'){
+    filterpic.setAttribute('value', 'dino');
+    filter.setAttribute('style', 'position:absolute; right:-10; bottom:-15; width:52%;');
     filter.setAttribute('src', '../filters/dino.png');
   }
   else if (choice == 'heart'){
+    filterpic.setAttribute('value', 'heart');
+    filter.setAttribute('style', 'position:absolute; top:-40; left:-20; width:35%;');
     filter.setAttribute('src', '../filters/coeurs.png');
   }
   else if (choice == 'eve'){
+    filterpic.setAttribute('value', 'eve');
     filter.setAttribute('src', '../filters/eveuh.png');
   }
   else if (choice == 'fox'){
+    filterpic.setAttribute('value', 'fox');
     filter.setAttribute('src', '../filters/fox.png');
   }
 });
