@@ -55,10 +55,12 @@ select.addEventListener('click', (ev) => {
   }
   else if (choice == 'eve'){
     filterpic.setAttribute('value', 'eve');
+    filter.setAttribute('style', 'position:absolute; left:-35; bottom:-23; width:52%;');
     filter.setAttribute('src', '../filters/eveuh.png');
   }
   else if (choice == 'fox'){
     filterpic.setAttribute('value', 'fox');
+    filter.setAttribute('style', 'position:absolute; right:6; bottom:-2; height:52%;');
     filter.setAttribute('src', '../filters/fox.png');
   }
 });
