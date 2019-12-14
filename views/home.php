@@ -1,6 +1,6 @@
 <?php include('header.php');?>
 
-  <select name="filter" id="filter">
+  <select name="filter" id="filter" onchange="changeFilter()">
     <option value="dino">Dino</option>
     <option value="heart">Heart balloons</option>
     <option value="eve">Eve (Wall-E)</option>
@@ -24,9 +24,9 @@
 <script>
 
 var constraints = { audio: false, video: true };
-var filterpic = document.querySelector('#filterpic');
+var filterpic = document.getElementById('filterpic');
 var filter = document.querySelector('#putfilter');
-var select = document.querySelector('#filter');
+var select = document.getElementById('filter');
 var video = document.querySelector('video');
 var canvas = document.querySelector('#canvas');
 var startbutton = document.querySelector('#startbutton');
@@ -41,29 +41,35 @@ navigator.mediaDevices.getUserMedia(constraints)
 })
 .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
 
-select.addEventListener('click', (ev) => {
-  choice = select.value;
-  if(choice == 'dino'){
+function changeFilter() {
+  var choice = document.getElementById('filter').value;
+  // console.log(select);
+  console.log(choice);
+  if (choice == 'dino'){
     filterpic.setAttribute('value', 'dino');
+    filter.setAttribute('alt', 'dino');
     filter.setAttribute('style', 'position:absolute; right:-10; bottom:-15; width:52%;');
     filter.setAttribute('src', '../filters/dino.png');
   }
   else if (choice == 'heart'){
     filterpic.setAttribute('value', 'heart');
-    filter.setAttribute('style', 'position:absolute; top:-40; left:-20; width:35%;');
+    filter.setAttribute('alt', 'heart');
+    filter.setAttribute('style', 'position:absolute; top:13; left:5; width:30%;');
     filter.setAttribute('src', '../filters/coeurs.png');
   }
   else if (choice == 'eve'){
     filterpic.setAttribute('value', 'eve');
+    filter.setAttribute('alt', 'eve');
     filter.setAttribute('style', 'position:absolute; left:-35; bottom:-23; width:52%;');
     filter.setAttribute('src', '../filters/eveuh.png');
   }
   else if (choice == 'fox'){
     filterpic.setAttribute('value', 'fox');
+    filter.setAttribute('alt', 'fox');
     filter.setAttribute('style', 'position:absolute; right:6; bottom:-2; height:52%;');
     filter.setAttribute('src', '../filters/fox.png');
   }
-});
+}
 
 startbutton.addEventListener('click', (ev) => {
   takepicture();
