@@ -24,7 +24,7 @@ function put_image($filename, $filtername){
         imagecopy($dest, $src, 300, 190, 0, 0, 400, 400);
     }
     else if ($filtername == '../filters/coeurs.png'){
-        imagecopy($dest, $src, 0, 0, 30, 50, 230, 200);
+        imagecopy($dest, $src, 8, 15, 0, 0, 200, 180);
     }
     else if ($filtername == '../filters/eveuh.png'){
         imagecopy($dest, $src, 0, 180, 40, 0, 200, 300);
