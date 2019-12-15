@@ -20,6 +20,7 @@ function connexion(){
 function create_tables($conn){
     $sql = "CREATE TABLE IF NOT EXISTS `user_sub` (`id` int(11) NOT NULL AUTO_INCREMENT, `login` text NOT NULL, `mail` text NOT NULL, `password` text NOT NULL, PRIMARY KEY (`id`), `num` int(11) NOT NULL);";
     $sql .= "CREATE TABLE IF NOT EXISTS `user` (`id` int(11) NOT NULL AUTO_INCREMENT, `login` text NOT NULL, `mail` text NOT NULL, `password` text NOT NULL, PRIMARY KEY (`id`), `num` int(11) NOT NULL);";
+    $sql .= "CREATE TABLE IF NOT EXISTS `gallery` (`id` int(11) NOT NULL AUTO_INCREMENT, `id_user` int(11) NOT NULL, `path` text NOT NULL, PRIMARY KEY (`id`));";
     $conn->query($sql);
 }
 

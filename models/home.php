@@ -12,6 +12,8 @@ function save_cam($img, $login){
     return $tab;
 }
 
+
+
 function put_image($filename, $filtername){
     $src = imagecreatefrompng($filtername);
     $dest = imagecreatefrompng($filename);
