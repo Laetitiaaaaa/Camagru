@@ -21,7 +21,7 @@
     </form> -->
     <input id="startbutton" type="submit" value="Take picture">
     </div>
-    <div id="preview" style="border:3px solid grey; display: inline-block; vertical-align: top;">
+    <div id="preview" style="border:3px solid grey; display: inline-block; vertical-align: top; text-align:center; width: 40%;">
     </div>
 </div>
 
@@ -79,20 +79,30 @@ httpRequest.onreadystatechange = display_picture;
 function display_picture(){
   if (httpRequest.readyState === XMLHttpRequest.DONE){
     if (httpRequest.status === 200){
-      alert(httpRequest.responseText);
       subject = httpRequest.response;
       pattern = RegExp('^\.\.\/gallery\/.*\.png');
       ans = subject.match(pattern);
       if (ans != null){
-        var img = document.createElement('img');
-        img.setAttribute('src', ans[0]);
-        document.getElementById('preview').appendChild(img);
+        addImg(ans[0]);
       }
     }
     else{
       alert('pb request');
     }
   }
+}
+
+function addImg(src){
+  var list = document.getElementById('preview');
+
+  var div = document.createElement('div');
+  div.setAttribute('style', 'width:80%; border: 3px solid red;');
+  list.insertBefore(div, list.childNodes[0]);
+
+  var img = document.createElement('img');
+  img.setAttribute('style', 'width:100%;');
+  img.setAttribute('src', src);
+  div.appendChild(img);
 }
 
 startbutton.addEventListener('click', (ev) => {
