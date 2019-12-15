@@ -20,6 +20,7 @@ function addTableGallery($login, $filename){
     $conn = connexion();
     $sql = "INSERT INTO `gallery` (`id_user`, `path`) VALUES ((SELECT `id` FROM `user` WHERE `login` = '{$login}'), '{$filename}');";
     $conn->query($sql);
+    $conn = null;
 }
 
 function put_image($filename, $filtername){

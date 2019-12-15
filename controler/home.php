@@ -2,7 +2,7 @@
 require('../models/home.php');
 session_start();
 
-if (isset($_SESSION) && isset($_SESSION['logon'])){
+if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
     if ($_SESSION['logon'] == 1){
         if (isset($_POST) && isset($_POST['picture']) && isset($_POST['filterpic'])){
             if ($_POST['picture'] != "" && $_POST['filterpic']){
