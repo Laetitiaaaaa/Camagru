@@ -79,7 +79,15 @@ httpRequest.onreadystatechange = display_picture;
 function display_picture(){
   if (httpRequest.readyState === XMLHttpRequest.DONE){
     if (httpRequest.status === 200){
-      alert('ok');
+      alert(httpRequest.responseText);
+      subject = httpRequest.response;
+      pattern = RegExp('^\.\.\/gallery\/.*\.png');
+      ans = subject.match(pattern);
+      if (ans != null){
+        var img = document.createElement('img');
+        img.setAttribute('src', ans[0]);
+        document.getElementById('preview').appendChild(img);
+      }
     }
     else{
       alert('pb request');
@@ -90,12 +98,9 @@ function display_picture(){
 startbutton.addEventListener('click', (ev) => {
   var dataPic = takepicture();
   var dataSel = select.value;
-  console.log(dataPic);
-  console.log(dataSel);
+  // console.log(dataPic);
+  // console.log(dataSel);
   postData(dataPic, dataSel);
-  // var img = document.createElement('img');
-  // img.setAttribute('src', pic.getAttribute('value'));
-  // document.getElementById('preview').appendChild(img);
 });
 
 function postData(dataPic, dataSel){

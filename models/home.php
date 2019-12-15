@@ -5,15 +5,10 @@ function save_cam($img, $login){
     $img = str_replace('data:image/png;base64,', '', $img);
     $data = base64_decode($img);
     $num = rand(0, 100000);
-    var_dump($login);
-    var_dump($num);
     $file = '../gallery/' . $login . '_' . $num . '.png';
     $success = file_put_contents($file, $data);
-    var_dump($file);
     $tab[0] = $file;
-    // var_dump($tab[0]);
     $tab[1] = $success;
-    // var_dump($tab[1]);
     return $tab;
 }
 
