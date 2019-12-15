@@ -51,7 +51,7 @@ function changeFilter() {
   if (choice == 'dino'){
     // filterpic.setAttribute('value', 'dino');
     filter.setAttribute('alt', 'dino');
-    filter.setAttribute('style', 'position:absolute; right:1%; bottom:1%; width:52%;');
+    filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; width:52%;');
     filter.setAttribute('src', '../filters/dino.png');
   }
   else if (choice == 'heart'){
@@ -80,7 +80,8 @@ function display_picture(){
   if (httpRequest.readyState === XMLHttpRequest.DONE){
     if (httpRequest.status === 200){
       subject = httpRequest.response;
-      pattern = RegExp('^\.\.\/gallery\/.*\.png');
+      alert(subject);
+      pattern = RegExp('\.\.\/gallery\/.*\.png');
       ans = subject.match(pattern);
       if (ans != null){
         addImg(ans[0]);

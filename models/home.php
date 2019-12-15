@@ -5,14 +5,22 @@ function save_cam($img, $login){
     $img = str_replace('data:image/png;base64,', '', $img);
     $data = base64_decode($img);
     $num = rand(0, 100000);
-    $file = '../gallery/' . $login . '_' . $num . '.png';
+    $img_name = $login . '_' . $num . '.png';
+    
+    $file = '../gallery/' . $img_name;
     $success = file_put_contents($file, $data);
+    addTableGallery($login, $img_name);
+
     $tab[0] = $file;
     $tab[1] = $success;
     return $tab;
 }
 
-
+function addTableGallery($login, $filename){
+    $conn = connexion();
+    $sql = "INSERT INTO `gallery` (`id_user`, `path`) VALUES ((SELECT `id` FROM `user` WHERE `login` = '{$login}'), '{$filename}');";
+    $conn->query($sql);
+}
 
 function put_image($filename, $filtername){
     $src = imagecreatefrompng($filtername);
