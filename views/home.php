@@ -31,7 +31,7 @@ var httpRequest = new XMLHttpRequest;
 navigator.mediaDevices.getUserMedia(constraints)
 .then(function(mediaStream) {
   createElemVideo();
-  
+
   var video = document.querySelector('video');
   video.srcObject = mediaStream;
   video.onloadedmetadata = function(e) {
@@ -46,7 +46,8 @@ navigator.mediaDevices.getUserMedia(constraints)
 })
 .catch(function(err) {
   console.log(err.name + ": " + err.message);
-  
+  createFormNoCam();
+  var input_file
   });
 
 function createElemVideo(){
@@ -73,6 +74,20 @@ function createElemVideo(){
   photoButton.setAttribute('type', 'submit');
   photoButton.setAttribute('value', 'Take picture');
   bluebox.appendChild(photoButton);
+}
+
+function createFormNoCam(){
+  var divideo = document.getElementById('divideo');
+  var p = document.createElement('p');
+  divideo.appendChild(p);
+
+  var text = document.createTextNode('Download a picture');
+  p.appendChild(text);
+
+  var download = document.createElement('input');
+  download.setAttribute('type', 'file');
+  download.setAttribute('name', 'download');
+  divideo.appendChild(download);
 }
 
 function takepicture(){
