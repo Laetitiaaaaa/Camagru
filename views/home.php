@@ -7,12 +7,12 @@
         <option value="eve">Eve (Wall-E)</option>
         <option value="fox">Fox</option>
     </select>
-    <div style="display:inline-block; border:3px solid blue;width: 50%;">
-    <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
+    <div id="bluebox" style="display:inline-block; border:3px solid blue;width: 50%;">
+      <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
         <!-- <video id="video" autoplay style="width:100%;"></video> -->
         <!-- <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;"> -->
-    </div>
-    <canvas id="canvas" style="display:none;"></canvas>
+      </div>
+    <!-- <canvas id="canvas" style="display:none;"></canvas> -->
 
     <!-- <form enctype="multipart/form-data" method="post" action="/controler/home.php">
 
@@ -20,7 +20,7 @@
     <input id="filepic" type="text" name="picture" style="display:none;">
 
     </form> -->
-    <input id="startbutton" type="submit" value="Take picture">
+      <!-- <input id="photoButton" type="submit" value="Take picture"> -->
     </div>
     <div id="preview" style="border:3px solid grey; display: inline-block; vertical-align: top; text-align:center; width: 40%;">
     </div>
@@ -30,15 +30,16 @@
 
 var constraints = { audio: false, video: true };
 var filter = document.querySelector('#putfilter');
-var video = document.querySelector('video');
-var canvas = document.querySelector('#canvas');
-var startbutton = document.querySelector('#startbutton');
+// var video = document.querySelector('video');
+var canvas = document.querySelector('canvas');
+var photoButton = document.getElementById('photoButton');
 var select = document.getElementById('filter');
 var httpRequest = new XMLHttpRequest;
 
 navigator.mediaDevices.getUserMedia(constraints)
 .then(function(mediaStream) {
   var divideo = document.getElementById('divideo');
+  var bluebox = document.getElementById('bluebox');
 
   var video = document.createElement('video');
   video.setAttribute('style', 'width:100%; position: relative; z-index: 1;');
@@ -51,10 +52,28 @@ navigator.mediaDevices.getUserMedia(constraints)
   img_filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;');
   divideo.appendChild(img_filter);
 
+  var canvas = document.createElement('canvas');
+  canvas.setAttribute('style', 'display:none;');
+  bluebox.appendChild(canvas);
+
+  var photoButton = document.createElement('input');
+  photoButton.setAttribute('id', 'photoButton');
+  photoButton.setAttribute('type', 'submit');
+  photoButton.setAttribute('value', 'Take picture');
+  bluebox.appendChild(photoButton);
+
   video.srcObject = mediaStream;
   video.onloadedmetadata = function(e) {
     video.play();
   };
+
+  document.getElementById('photoButton').addEventListener('click', (ev) => {
+  var dataPic = takepicture();
+  var dataSel = select.value;
+  // console.log(dataPic);
+  // console.log(dataSel);
+  postData(dataPic, dataSel);
+  });
 })
 .catch(function(err) {
   console.log(err.name + ": " + err.message);
@@ -117,14 +136,6 @@ function addImg(src){
   div.appendChild(img);
 }
 
-startbutton.addEventListener('click', (ev) => {
-  var dataPic = takepicture();
-  var dataSel = select.value;
-  // console.log(dataPic);
-  // console.log(dataSel);
-  postData(dataPic, dataSel);
-});
-
 function postData(dataPic, dataSel){
     var formData = new FormData();
     formData.append('picture', dataPic);
@@ -134,9 +145,13 @@ function postData(dataPic, dataSel){
 }
 
 function takepicture(){
-    canvas.width = document.querySelector('video').videoWidth;
-    canvas.height = document.querySelector('video').videoHeight;
+    var canvas = document.querySelector('canvas');
+    var video = document.querySelector('video');
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
+    
     var data = canvas.toDataURL();
     return data;
 }
