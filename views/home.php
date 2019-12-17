@@ -9,10 +9,11 @@
     </select>
     <div style="display:inline-block; border:3px solid blue;width: 50%;">
     <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
-        <video id="video" autoplay style="width:100%;"></video>
-        <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; width:52%;">
+        <!-- <video id="video" autoplay style="width:100%;"></video> -->
+        <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
     </div>
     <canvas id="canvas" style="display:none;"></canvas>
+
     <!-- <form enctype="multipart/form-data" method="post" action="/controler/home.php">
 
     <input id="filterpic" type="text" name="filterpic" value="dino" style="display:none;">
@@ -37,6 +38,11 @@ var httpRequest = new XMLHttpRequest;
 
 navigator.mediaDevices.getUserMedia(constraints)
 .then(function(mediaStream) {
+
+  var video = document.createElement('video');
+  video.setAttribute('style', 'width:100%; position: relative; z-index: 1;');
+  document.getElementById('divideo').appendChild(video);
+
   video.srcObject = mediaStream;
   video.onloadedmetadata = function(e) {
     video.play();
@@ -120,8 +126,8 @@ function postData(dataPic, dataSel){
 }
 
 function takepicture(){
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    canvas.width = document.querySelector('video').videoWidth;
+    canvas.height = document.querySelector('video').videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
     var data = canvas.toDataURL();
     return data;
