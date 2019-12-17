@@ -33,6 +33,5 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
     }
 }
 
-
 require('../views/photo.php');
 ?>
