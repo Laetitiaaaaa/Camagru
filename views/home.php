@@ -10,7 +10,7 @@
     <div style="display:inline-block; border:3px solid blue;width: 50%;">
     <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
         <!-- <video id="video" autoplay style="width:100%;"></video> -->
-        <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
+        <!-- <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;"> -->
     </div>
     <canvas id="canvas" style="display:none;"></canvas>
 
@@ -38,10 +38,18 @@ var httpRequest = new XMLHttpRequest;
 
 navigator.mediaDevices.getUserMedia(constraints)
 .then(function(mediaStream) {
+  var divideo = document.getElementById('divideo');
 
   var video = document.createElement('video');
   video.setAttribute('style', 'width:100%; position: relative; z-index: 1;');
-  document.getElementById('divideo').appendChild(video);
+  divideo.appendChild(video);
+
+  var img_filter = document.createElement('img');
+  img_filter.setAttribute('id', 'putfilter');
+  img_filter.setAttribute('src', '../filters/dino.png');
+  img_filter.setAttribute('alt', 'dino');
+  img_filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;');
+  divideo.appendChild(img_filter);
 
   video.srcObject = mediaStream;
   video.onloadedmetadata = function(e) {
