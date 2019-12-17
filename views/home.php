@@ -28,13 +28,11 @@
 <script>
 
 var constraints = { audio: false, video: true };
-// var filterpic = document.getElementById('filterpic');
 var filter = document.querySelector('#putfilter');
 var video = document.querySelector('video');
 var canvas = document.querySelector('#canvas');
 var startbutton = document.querySelector('#startbutton');
 var select = document.getElementById('filter');
-// var pic = document.querySelector('#filepic');
 var httpRequest = new XMLHttpRequest;
 
 navigator.mediaDevices.getUserMedia(constraints)
@@ -44,30 +42,29 @@ navigator.mediaDevices.getUserMedia(constraints)
     video.play();
   };
 })
-.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+.catch(function(err) {
+  console.log(err.name + ": " + err.message);
+  
+  });
 
 function changeFilter() {
   var choice = document.getElementById('filter').value;
   if (choice == 'dino'){
-    // filterpic.setAttribute('value', 'dino');
     filter.setAttribute('alt', 'dino');
     filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; width:52%;');
     filter.setAttribute('src', '../filters/dino.png');
   }
   else if (choice == 'heart'){
-    // filterpic.setAttribute('value', 'heart');
     filter.setAttribute('alt', 'heart');
     filter.setAttribute('style', 'position:absolute; top:2.5%; left:1%; width:30%;');
     filter.setAttribute('src', '../filters/coeurs.png');
   }
   else if (choice == 'eve'){
-    // filterpic.setAttribute('value', 'eve');
     filter.setAttribute('alt', 'eve');
     filter.setAttribute('style', 'position:absolute; left:-6%; bottom:-5.5%; width:52%;');
     filter.setAttribute('src', '../filters/eveuh.png');
   }
   else if (choice == 'fox'){
-    // filterpic.setAttribute('value', 'fox');
     filter.setAttribute('alt', 'fox');
     filter.setAttribute('style', 'position:absolute; right:1%; bottom:-0.7%; height:60%;');
     filter.setAttribute('src', '../filters/fox.png');

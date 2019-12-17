@@ -11,6 +11,7 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 $id_photo = $_GET['n'];
                 $file_img = getPhoto($id_user['id'], $id_photo)['path'];
                 $nbLike = countLike($id_user['id'], $id_photo);
+                $comments = getComment($file_img);
             }
         }
 
@@ -20,18 +21,25 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 $file_img = $_POST['namePhoto'];
                 $idUser = getId($_POST['logUser']);
                 $idPhoto = $_POST['idPhoto'];
-                var_dump($file_img);
                 if ($_POST['like'] != ""){
                     likePhoto($file_img);
                     $nbLike = countLike($idUser['id'], $idPhoto);
                 }
                 else if ($_POST['com'] != "" && $_POST['subcom']!= ""){
-
+                    $logUser = $_SESSION['login'];
+                    $comment = $_POST['com'];
+                    addDbCom($logUser, $comment, $file_img);
+                    $comments = getComment($file_img);
                 }
             }
         }
+        require('../views/photo.php');
+    }
+    else{
+        require('../views/notLogon.php');
     }
 }
-
-require('../views/photo.php');
+else{
+    require('../views/notLogon.php');
+}
 ?>

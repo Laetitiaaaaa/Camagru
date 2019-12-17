@@ -10,6 +10,15 @@ function getPhoto($id_user, $id_photo){
     return $data[0];
 }
 
+function getLogin($id){
+    $conn = connexion();
+    $sql = "SELECT `login` FROM `user` WHERE `id` = '{$id}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $data[0];
+}
+
 function getId($login){
     $conn = connexion();
     $sql = "SELECT `id` FROM `user` WHERE `login` = '{$login}'";
@@ -33,6 +42,23 @@ function likePhoto($namePhoto){
     $sql = "UPDATE `gallery` SET `nb_like` = `nb_like` + 1 WHERE `path` = '{$namePhoto}';";
     $conn->query($sql);
     $conn = null;
+}
+
+function addDbCom($logUser, $comment, $filename){
+    $conn = connexion();
+    $idUser = getId($logUser);
+    $sql = "INSERT INTO `com` (`id_user`, `comment`, `picname`) VALUES ('{$idUser['id']}', '{$comment}', '{$filename}');";
+    $conn->query($sql);
+    $conn = null;
+}
+
+function getComment($filename){
+    $conn = connexion();
+    $sql = "SELECT * FROM `com` WHERE `picname` = '{$filename}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $data;
 }
 
 ?>
