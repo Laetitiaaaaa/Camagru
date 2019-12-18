@@ -10,7 +10,6 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 $img = $_POST['picture'];
                 $filter = $_POST['filterpic'];
                 $ans = true;
-                var_dump($filter);
                 $login = $_SESSION['login'];
                 if (isPath($img) == false){
                     $tab = save_cam($img, $login);
@@ -21,10 +20,7 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                     $filename = $img;
                 }
                 if ($ans != false){
-                    var_dump('le filename');
-                    var_dump($filename);
                     if ($filter == 'dino'){
-                        var_dump('filter dino ok');
                         $filtername = '../filters/dino.png';
                     }
                     else if ($filter == 'heart'){
@@ -54,7 +50,7 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                     $new = '_' . $num . '.png';
                     $name = str_replace('.png', $new, $name);
                 }
-                $filename = '../gallery/'.$name;
+                $filename = '../gallery/uploadedPictures/'.$name;
                 move_uploaded_file($tmp_name, $filename);
             }
         }

@@ -64,6 +64,7 @@ function pushPic(){
   var regex = /http\:\/\/localhost\:8080/;
   var dataPic = path.replace(regex, '..');
   var dataSel = select.value;
+  console.log(dataPic);
   console.log('SELECT');
   console.log(dataSel);
   postData(dataPic, dataSel);

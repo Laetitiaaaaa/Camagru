@@ -28,8 +28,11 @@ function addTableGallery($login, $filename){
 }
 
 function put_image($login, $filename, $filtername){
+    $name = str_replace('../gallery/uploadedPictures/', '', $filename);
+    $newone = '../gallery/newPictures/' . $name;
+    copy($filename, $newone);
     $src = imagecreatefrompng($filtername);
-    $dest = imagecreatefrompng($filename);
+    $dest = imagecreatefrompng($newone);
     if ($filtername == '../filters/dino.png'){
         var_dump('on est bien dans la copie dino');
         imagecopy($dest, $src, 300, 190, 0, 0, 400, 400);
@@ -43,21 +46,16 @@ function put_image($login, $filename, $filtername){
     else if ($filtername == '../filters/fox.png'){
         imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
     }
-    var_dump('name file and nb exists');
-    var_dump($filename);
-    var_dump(fileExists($filename));
-    if (fileExists($filename) != 0){
+    if (fileExists($name) != 0){
         $num = rand(0, 500);
         $new = '_' . $num . '.png';
-        $filename = str_replace('.png', $new, $filename);
+        $newone = str_replace('.png', $new, $newone);
+        $name = str_replace('../gallery/', '', $name);
     }
-    var_dump('test');
-    var_dump($filename);
-    $bool = imagepng($dest, $filename);
-    var_dump('le bool');
-    var_dump($bool);
+    echo $newone;
+    $bool = imagepng($dest, $newone);
     if ($bool == true){
-        addTableGallery($login, $filename);
+        addTableGallery($login, $name);
     }
     else{
         var_dump('pb enregistrement montage');
