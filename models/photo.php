@@ -61,4 +61,12 @@ function getComment($filename){
     return $data;
 }
 
+function suppPhoto($name){
+    $conn = connexion();
+    $sql = "DELETE FROM `gallery` WHERE `path` = '{$name}';";
+    $sql .= "DELETE FROM `com` WHERE `picname` = '{$name}';";
+    $conn->query($sql);
+    $conn = null;
+}
+
 ?>

@@ -15,7 +15,7 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
             }
         }
 
-        if (isset($_POST) && isset($_POST['namePhoto']) && isset($_POST['logUser']) && isset($_POST['idPhoto']) && (isset($_POST['like']) || (isset($_POST['com']) && isset($_POST['subcom']))))
+        if (isset($_POST) && isset($_POST['namePhoto']) && isset($_POST['logUser']) && isset($_POST['idPhoto']) && (isset($_POST['like']) || isset($_POST['supp']) || (isset($_POST['com']) && isset($_POST['subcom']))))
         {
             if ($_POST['namePhoto'] != "" && $_POST['logUser'] != "" && $_POST['idPhoto'] != ""){
                 $file_img = $_POST['namePhoto'];
@@ -30,6 +30,9 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                     $comment = $_POST['com'];
                     addDbCom($logUser, $comment, $file_img);
                     $comments = getComment($file_img);
+                }
+                else if ($_POST['supp'] != ""){
+                    suppPhoto($file_img);
                 }
             }
         }

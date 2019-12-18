@@ -29,6 +29,5 @@ if ($currentPage < $nbPage){
     $next = $currentPage + 1;
 }
 
-
 require('../views/gallery.php');
 ?>
