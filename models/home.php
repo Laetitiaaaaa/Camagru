@@ -7,9 +7,11 @@ function save_cam($img, $login){
     $num = rand(0, 100000);
     $img_name = $login . '_' . $num . '.png';
     if (fileExists($img_name) != 0){
-        $img_name = str_replace('.png', 'bis.png', $img_name);
+        $num = rand(0, 500);
+        $new = '_' . $num . '.png';
+        $img_name = str_replace('.png', $new, $img_name);
     }
-    
+
     $file = '../gallery/' . $img_name;
     $success = file_put_contents($file, $data);
 
@@ -41,11 +43,19 @@ function put_image($login, $filename, $filtername){
     else if ($filtername == '../filters/fox.png'){
         imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
     }
+    var_dump('name file and nb exists');
+    var_dump($filename);
+    var_dump(fileExists($filename));
     if (fileExists($filename) != 0){
-        $newName = str_replace('.png', 'bis.png', $newName);
-        rename($filename, $newName);
+        $num = rand(0, 500);
+        $new = '_' . $num . '.png';
+        $filename = str_replace('.png', $new, $filename);
     }
+    var_dump('test');
+    var_dump($filename);
     $bool = imagepng($dest, $filename);
+    var_dump('le bool');
+    var_dump($bool);
     if ($bool == true){
         addTableGallery($login, $filename);
     }

@@ -50,7 +50,9 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 $tmp_name = $img['tmp_name'];
                 $name = $_SESSION['login'] . '_' . $num . '.png';
                 if (fileExists($name) != 0){
-                    $name = str_replace('.png', 'bis.png', $name);
+                    $num = rand(0, 500);
+                    $new = '_' . $num . '.png';
+                    $name = str_replace('.png', $new, $name);
                 }
                 $filename = '../gallery/'.$name;
                 move_uploaded_file($tmp_name, $filename);
