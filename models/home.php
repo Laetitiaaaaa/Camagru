@@ -6,10 +6,12 @@ function save_cam($img, $login){
     $data = base64_decode($img);
     $num = rand(0, 100000);
     $img_name = $login . '_' . $num . '.png';
+    if (fileExists($img_name) != 0){
+        $img_name = str_replace('.png', 'bis.png', $img_name);
+    }
     
     $file = '../gallery/' . $img_name;
     $success = file_put_contents($file, $data);
-    addTableGallery($login, $img_name);
 
     $tab[0] = $file;
     $tab[1] = $success;
@@ -23,10 +25,11 @@ function addTableGallery($login, $filename){
     $conn = null;
 }
 
-function put_image($filename, $filtername){
+function put_image($login, $filename, $filtername){
     $src = imagecreatefrompng($filtername);
     $dest = imagecreatefrompng($filename);
     if ($filtername == '../filters/dino.png'){
+        var_dump('on est bien dans la copie dino');
         imagecopy($dest, $src, 300, 190, 0, 0, 400, 400);
     }
     else if ($filtername == '../filters/coeurs.png'){
@@ -38,7 +41,34 @@ function put_image($filename, $filtername){
     else if ($filtername == '../filters/fox.png'){
         imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
     }
-    imagepng($dest, $filename);
+    if (fileExists($filename) != 0){
+        $newName = str_replace('.png', 'bis.png', $newName);
+        rename($filename, $newName);
+    }
+    $bool = imagepng($dest, $filename);
+    if ($bool == true){
+        addTableGallery($login, $filename);
+    }
+    else{
+        var_dump('pb enregistrement montage');
+    }
+}
+
+function isPath($img){
+    $pattern = "/^\.\.\/gallery\/.+\.png/";
+    if (preg_match($pattern, $img) == 1){
+        return true;
+    }
+    return false;
+}
+
+function fileExists($name){
+    $conn = connexion();
+    $sql = "SELECT COUNT(`path`) AS 'count' FROM `gallery` WHERE `path` = '{$name}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $data[0]['count'];
 }
 
 ?>
