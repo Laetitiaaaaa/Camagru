@@ -12,7 +12,7 @@ function save_cam($img, $login){
         $img_name = str_replace('.png', $new, $img_name);
     }
 
-    $file = '../gallery/' . $img_name;
+    $file = '../gallery/uploadedPictures/' . $img_name;
     $success = file_put_contents($file, $data);
 
     $tab[0] = $file;
