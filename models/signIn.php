@@ -41,4 +41,13 @@ function match($login, $password){
     }
 }
 
+function recoverMail($login){
+    $conn = connexion();
+    $sql = "SELECT `mail` FROM `user` WHERE `login` = '{$login}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $data[0]['mail'];
+}
+
 ?>

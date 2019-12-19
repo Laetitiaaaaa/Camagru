@@ -9,7 +9,7 @@ if (isset($_POST) && isset($_POST['login']) && isset($_POST['password'])){
         $password = $_POST['password'];
         if (match($login, $password) == true){
             $_SESSION['login'] = $login;
-            $_SESSION['mail'] = null;
+            $_SESSION['mail'] = recoverMail($login);
             $_SESSION['logon'] = 1;
             echo "Connection succeed!</br>";
             $siOk = 1;
