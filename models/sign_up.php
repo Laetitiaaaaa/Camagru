@@ -2,6 +2,7 @@
 include('../config/database.php');
 
 function insert_user($login, $mail, $password){
+    $password = hash('whirlpool', $password);
     $conn = connexion();
     $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
     $conn->query($sql);

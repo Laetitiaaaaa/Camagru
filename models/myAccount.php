@@ -90,6 +90,7 @@ function changeMail($login, $newMail){
 function changePass($login, $newPass, $verif){
     if (checkPasswd($newPass) == true){
         if (matchPassVerif($newPass, $verif) == true){
+            $newPass = hash('whirlpool', $newPass);
             $conn = connexion();
             $sql = "UPDATE `user` SET `password` = '{$newPass}' WHERE `login` = '{$login}';";
             $conn->query($sql);

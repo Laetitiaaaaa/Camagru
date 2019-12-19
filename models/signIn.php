@@ -15,6 +15,7 @@ function isLogin($login){
 }
 
 function matchLogPass($login, $password){
+    $password = hash('whirlpool', $password);
     $conn = connexion();
     $sql = "SELECT * FROM `user` WHERE `login` = '{$login}' AND `password` = '{$password}';";
     $req = $conn->query($sql);

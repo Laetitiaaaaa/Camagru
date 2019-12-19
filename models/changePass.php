@@ -26,6 +26,7 @@ function matchPassVerif($password, $verif){
 }
 
 function changePass($login, $password){
+    $password = hash('whirlpool', $password);
     $conn = connexion();
     $sql = "UPDATE `user` SET `password` = '{$password}' WHERE `login` = '{$login}';";
     $conn->query($sql);
