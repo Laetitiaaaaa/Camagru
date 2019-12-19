@@ -21,7 +21,6 @@ function isMail($mail){
     $req = $conn->query($sql);
     $data = $req->fetchAll(PDO::FETCH_ASSOC);
     $conn = null;
-    var_dump($data);
     if ($data){
         return true;
     }
@@ -77,7 +76,6 @@ function changeLog($oldLog, $newLog){
 }
 
 function changeMail($login, $newMail){
-    var_dump(isMail($newMail));
     if (isMail($newMail) == false){
         $conn = connexion();
         $sql = "UPDATE `user` SET `mail` = '{$newMail}' WHERE `login` = '{$login}';";
