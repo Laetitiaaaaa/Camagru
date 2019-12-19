@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function insertNum($login, $num){
     $conn = connexion();

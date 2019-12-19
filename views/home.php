@@ -14,7 +14,7 @@
       <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
       <?php if (isset($_FILES['download']) && $_FILES['download'] != ""){?>
       <img id="imgUploaded" src="<?php echo $filename ?>" alt="file" style="width:100%; position: relative; z-index: 1;">
-      <img id="putfilter" src="../filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
+      <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
       <?php } ?>
       </div>
       <?php if (isset($_FILES['download']) && $_FILES['download'] != ""){ ?>
@@ -61,8 +61,8 @@ navigator.mediaDevices.getUserMedia(constraints)
 
 function pushPic(){
   var path = document.getElementById('imgUploaded').src;
-  var regex = /http\:\/\/localhost\:8080/;
-  var dataPic = path.replace(regex, '..');
+  var regex = /http\:\/\/localhost\:8080\//;
+  var dataPic = path.replace(regex, '');
   var dataSel = select.value;
   console.log(dataPic);
   console.log('SELECT');
@@ -80,7 +80,7 @@ function createElemVideo(){
 
   var img_filter = document.createElement('img');
   img_filter.setAttribute('id', 'putfilter');
-  img_filter.setAttribute('src', '../filters/dino.png');
+  img_filter.setAttribute('src', '/filters/dino.png');
   img_filter.setAttribute('alt', 'dino');
   img_filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;');
   divideo.appendChild(img_filter);
@@ -107,7 +107,7 @@ function createFormNoCam(){
 
   var form = document.createElement('form');
   form.setAttribute('method', 'POST');
-  form.setAttribute('action', '/controler/home.php');
+  form.setAttribute('action', '/mounting');
   form.setAttribute('enctype', 'multipart/form-data');
   form.setAttribute('id', 'nocam');
   bluebox.insertBefore(form, bluebox.childNodes[1]);
@@ -142,7 +142,7 @@ function postData(dataPic, dataSel){
     var formData = new FormData();
     formData.append('picture', dataPic);
     formData.append('filterpic', dataSel);
-    httpRequest.open('POST', '/controler/home.php');
+    httpRequest.open('POST', '/mounting');
     httpRequest.send(formData);
 }
 
@@ -151,22 +151,22 @@ function changeFilter() {
   if (choice == 'dino'){
     filter.setAttribute('alt', 'dino');
     filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; width:52%; z-index: 2;');
-    filter.setAttribute('src', '../filters/dino.png');
+    filter.setAttribute('src', '/filters/dino.png');
   }
   else if (choice == 'heart'){
     filter.setAttribute('alt', 'heart');
     filter.setAttribute('style', 'position:absolute; top:2.5%; left:1%; width:30%; z-index: 2;');
-    filter.setAttribute('src', '../filters/coeurs.png');
+    filter.setAttribute('src', '/filters/coeurs.png');
   }
   else if (choice == 'eve'){
     filter.setAttribute('alt', 'eve');
     filter.setAttribute('style', 'position:absolute; left:-6%; bottom:-5.5%; width:52%; z-index: 2;');
-    filter.setAttribute('src', '../filters/eveuh.png');
+    filter.setAttribute('src', '/filters/eveuh.png');
   }
   else if (choice == 'fox'){
     filter.setAttribute('alt', 'fox');
     filter.setAttribute('style', 'position:absolute; right:1%; bottom:-0.7%; height:60%; z-index: 2;');
-    filter.setAttribute('src', '../filters/fox.png');
+    filter.setAttribute('src', '/filters/fox.png');
   }
 }
 
@@ -177,7 +177,7 @@ function display_picture(){
     if (httpRequest.status === 200){
       subject = httpRequest.response;
       alert(subject);
-      pattern = RegExp('\.\.\/gallery\/.*\.png');
+      pattern = RegExp('gallery\/.*\.png');
       ans = subject.match(pattern);
       
       if (ans != null){

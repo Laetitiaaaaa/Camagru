@@ -1,10 +1,11 @@
 <?php
-require('../models/sign_up.php');
+require($root . '/models/sign_up.php');
 
-session_start();
+if($method == 'GET'){
+    require($root . '/views/sign_up.php');
+}
 
-if (isset($_POST) && isset($_POST['login']) && isset($_POST['mail']) && isset($_POST['password'])){
-    $suOk = 0;
+if ($method == 'POST'){
     if ($_POST['login'] != "" && $_POST['mail'] != "" && $_POST['password'] != ""){        
         $login = $_POST['login'];
         $mail = $_POST['mail'];
@@ -16,7 +17,8 @@ if (isset($_POST) && isset($_POST['login']) && isset($_POST['mail']) && isset($_
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = $mail;
             insert_user($login, $mail, $password);
-            $suOk = 1;
+            header('Location: '. $fullDomain . '/sign-up-ok');
+            exit;
         }
         else if ($resLog == true || $resMail == true || $resPasswd == false){
             if ($resLog == true){
@@ -30,12 +32,6 @@ if (isset($_POST) && isset($_POST['login']) && isset($_POST['mail']) && isset($_
             }
         }
     }
-}
-
-if ($suOk == 0){
-    require('../views/sign_up.php');
-}
-else{
-    header('Location: http://localhost:8080/controler/suOk.php');
+    header('Location: ' . $fullDomain . '/sign-up');
 }
 ?>

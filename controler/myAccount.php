@@ -1,10 +1,13 @@
 <?php 
-require('../models/myAccount.php');
-session_start();
+require($root . '/models/myAccount.php');
 
 if (isset($_SESSION) && isset($_SESSION['login']) && isset($_SESSION['logon'])){
     if($_SESSION['logon'] == 1){
-        if (isset($_POST) && (isset($_POST['login']) && isset($_POST['changeLog']) || (isset($_POST['mail']) && isset($_POST['changeMail'])) || (isset($_POST['password']) && isset($_POST['verif']) && isset($_POST['changePass'])))){
+        if ($method == 'GET'){
+            require($root . '/views/myAccount.php');
+        }
+
+        if ($method == 'POST'){
             if (!empty($_POST['login']) && !empty($_POST['changeLog'])){
                 $login = $_POST['login'];
                 changeLog($_SESSION['login'], $login);
@@ -20,15 +23,16 @@ if (isset($_SESSION) && isset($_SESSION['login']) && isset($_SESSION['logon'])){
                 $verif = $_POST['verif'];
                 changePass($_SESSION['login'], $newPass, $verif);
             }
+            header('Location: ' . $fullDomain . '/my-account');
+            exit;
         }
-        require('../views/myAccount.php');
     }
     else{
-        require('../views/notLogon.php');
+        require($root . '/views/notLogon.php');
     }
 }
 else{
-    require('../views/notLogon.php');
+    require($root . '/views/notLogon.php');
 }
 
 ?>

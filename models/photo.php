@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function getPhoto($id_user, $id_photo){
     $conn = connexion();

@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function recoverFiles(){
     $conn = connexion();

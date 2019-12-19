@@ -5,24 +5,62 @@ $port = "8080";
 $fullDomain = $domainName.$port;
 $uri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
+$root = dirname(__FILE__);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-if($uri == "/signIn"){
-    require('./controler/signIn.php');
+//*************authentification******************** */
+if ($_SESSION['logon'] == 1){
+    $auth = true;
+}
+else{
+    $auth = false;
 }
 
+//**********permission**************************** */
+// $private = false;
+
+// if ($uri == '/home' ||)
+
+//*************redirection************************* */
+
+if ($uri == '/'){
+    require('./controler/gallery.php');
+}
+else if ($uri == '/sign-in'){
+    require('./controler/signIn.php');
+}
+else if ($uri == '/sign-up'){
+    require('./controler/signUp.php');
+}
+else if ($uri == '/sign-out'){
+    require('./controler/signOut.php');
+}
+else if (preg_match('/\/change-pass/', $uri) == 1){
+    require('./controler/changePass.php');
+}
+else if (preg_match('/\/confirm/', $uri) == 1){
+    require('./controler/confirm.php');
+}
+else if ($uri == '/forgot-pass'){
+    require('./controler/forgot-pass.php');
+}
+else if (preg_match('/\/gallery/', $uri) == 1){
+    require('./controler/gallery.php');
+}
+else if ($uri == '/mounting'){
+    require('./controler/home.php');
+}
+else if ($uri == '/my-account'){
+    require('./controler/myAccount.php');
+}
+else if (preg_match('/\/photo/', $uri) == 1){
+    require('./controler/photo.php');
+}
+else if ($uri == '/sign-up-ok'){
+    require('./controler/suOk.php');
+}
+else{
+    echo '404 Error';
+}
 
 
 

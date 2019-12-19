@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function isLogin($login){
     $conn = connexion();

@@ -2,7 +2,7 @@
 
 <h2>Change password</h2>
 
-<form name="changePass" method="post" action="../controler/changePass.php">
+<form name="changePass" method="post" action="/controler/changePass.php">
 
 <input name="password" type="password" placeholder="New password"/></br> 
 <input name="verif" type="password" placeholder="Verification"/></br> 

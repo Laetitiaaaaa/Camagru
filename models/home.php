@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function save_cam($img, $login){
     $img = str_replace('data:image/png;base64,', '', $img);
@@ -12,7 +12,7 @@ function save_cam($img, $login){
         $img_name = str_replace('.png', $new, $img_name);
     }
 
-    $file = '../gallery/uploadedPictures/' . $img_name;
+    $file = 'gallery/uploadedPictures/' . $img_name;
     $success = file_put_contents($file, $data);
 
     $tab[0] = $file;
@@ -28,29 +28,29 @@ function addTableGallery($login, $filename){
 }
 
 function put_image($login, $filename, $filtername){
-    $name = str_replace('../gallery/uploadedPictures/', '', $filename);
-    $newone = '../gallery/newPictures/' . $name;
+    var_dump($filtername);
+    $name = str_replace('gallery/uploadedPictures/', '', $filename);
+    $newone = 'gallery/newPictures/' . $name;
     copy($filename, $newone);
     $src = imagecreatefrompng($filtername);
     $dest = imagecreatefrompng($newone);
-    if ($filtername == '../filters/dino.png'){
-        var_dump('on est bien dans la copie dino');
+    if ($filtername == 'filters/dino.png'){
         imagecopy($dest, $src, 300, 190, 0, 0, 400, 400);
     }
-    else if ($filtername == '../filters/coeurs.png'){
+    else if ($filtername == 'filters/coeurs.png'){
         imagecopy($dest, $src, 8, 15, 0, 0, 200, 180);
     }
-    else if ($filtername == '../filters/eveuh.png'){
+    else if ($filtername == 'filters/eveuh.png'){
         imagecopy($dest, $src, 0, 180, 40, 0, 200, 300);
     }
-    else if ($filtername == '../filters/fox.png'){
+    else if ($filtername == 'filters/fox.png'){
         imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
     }
     if (fileExists($name) != 0){
         $num = rand(0, 500);
         $new = '_' . $num . '.png';
         $newone = str_replace('.png', $new, $newone);
-        $name = str_replace('../gallery/', '', $name);
+        $name = str_replace('/gallery/', '', $name);
     }
     echo $newone;
     $bool = imagepng($dest, $newone);
@@ -63,7 +63,7 @@ function put_image($login, $filename, $filtername){
 }
 
 function isPath($img){
-    $pattern = "/^\.\.\/gallery\/.+\.png/";
+    $pattern = "/^gallery\/.+\.png/";
     if (preg_match($pattern, $img) == 1){
         return true;
     }

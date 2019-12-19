@@ -1,7 +1,5 @@
 <?php
-require('../models/home.php');
-session_start();
-
+require($root . '/models/home.php');
 
 if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
     if ($_SESSION['logon'] == 1){
@@ -21,16 +19,16 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 }
                 if ($ans != false){
                     if ($filter == 'dino'){
-                        $filtername = '../filters/dino.png';
+                        $filtername = 'filters/dino.png';
                     }
                     else if ($filter == 'heart'){
-                        $filtername = '../filters/coeurs.png';
+                        $filtername = 'filters/coeurs.png';
                     }
                     else if ($filter == 'eve'){
-                        $filtername = '../filters/eveuh.png';
+                        $filtername = 'filters/eveuh.png';
                     }
                     else if ($filter == 'fox'){
-                        $filtername = '../filters/fox.png';
+                        $filtername = 'filters/fox.png';
                     }
                     put_image($_SESSION['login'], $filename, $filtername);
                 }
@@ -50,18 +48,18 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                     $new = '_' . $num . '.png';
                     $name = str_replace('.png', $new, $name);
                 }
-                $filename = '../gallery/uploadedPictures/'.$name;
+                $filename = 'gallery/uploadedPictures/' . $name;
                 move_uploaded_file($tmp_name, $filename);
             }
         }
-        require('../views/home.php');
+        require($root . '/views/home.php');
     }
     else{
-        require('../views/notLogon.php');
+        require($root . '/views/notLogon.php');
     }
 }
 else{
-    require('../views/notLogon.php');    
+    require($root . '/views/notLogon.php');    
 }
 
 ?>

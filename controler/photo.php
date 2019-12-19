@@ -1,21 +1,21 @@
 <?php
-require('../models/photo.php');
-session_start();
+require($root . '/models/photo.php');
 
 if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
     if ($_SESSION['logon'] != ""){
 
-        if (isset($_GET) && isset($_GET['log']) && isset($_GET['n'])){
+        if ($method == 'GET'){
             if ($_GET['log'] != "" && $_GET['n'] != ""){
                 $id_user = getId($_GET['log']);
                 $id_photo = $_GET['n'];
                 $file_img = getPhoto($id_user['id'], $id_photo)['path'];
                 $nbLike = countLike($id_user['id'], $id_photo);
                 $comments = getComment($file_img);
+                require($root . '/views/photo.php');
             }
         }
 
-        if (isset($_POST) && isset($_POST['namePhoto']) && isset($_POST['logUser']) && isset($_POST['idPhoto']) && (isset($_POST['like']) || isset($_POST['supp']) || (isset($_POST['com']) && isset($_POST['subcom']))))
+        if ($method == 'POST')
         {
             if ($_POST['namePhoto'] != "" && $_POST['logUser'] != "" && $_POST['idPhoto'] != ""){
                 $file_img = $_POST['namePhoto'];
@@ -35,15 +35,15 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                 else if ($_POST['supp'] != ""){
                     suppPhoto($file_img);
                 }
+                header('Location: ' . $fullDomain . '/photo?log=' . $_POST['logUser'] . '&n=' . $idPhoto);
             }
         }
-        require('../views/photo.php');
     }
     else{
-        require('../views/notLogon.php');
+        require($root . '/views/notLogon.php');
     }
 }
 else{
-    require('../views/notLogon.php');
+    require($root . '/views/notLogon.php');
 }
 ?>

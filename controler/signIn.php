@@ -1,9 +1,11 @@
 <?php
-require('../models/signIn.php');
-session_start();
+require($root . '/models/signIn.php');
 
-if (isset($_POST) && isset($_POST['login']) && isset($_POST['password'])){
-    $siOk = 0;
+if ($method == 'GET'){
+    require($root . '/views/signIn.php');
+}
+
+if ($method == 'POST'){
     if ($_POST['login'] != "" && $_POST['password'] != ""){
         $login = $_POST['login'];
         $password = $_POST['password'];
@@ -11,20 +13,16 @@ if (isset($_POST) && isset($_POST['login']) && isset($_POST['password'])){
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = recoverMail($login);
             $_SESSION['logon'] = 1;
-            echo "Connection succeed!</br>";
-            $siOk = 1;
+            // echo "Connection succeed!</br>";
+            header('Location: '. $fullDomain . '/mounting');
+            exit;
         }
         else{
-            echo "Connection failed</br>";
+            // echo "Connection failed</br>";
         }
     }
-}
-
-if ($siOk == 0){
-    require('../views/signIn.php');
-}
-else{
-    header('Location: http://localhost:8080/controler/home.php');   
+    header('Location: '. $fullDomain . '/sign-in');
+    exit;
 }
 
 ?>

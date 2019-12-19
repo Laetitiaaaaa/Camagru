@@ -1,13 +1,13 @@
 <?php
-require('../models/confirm.php');
+require($root . '/models/confirm.php');
 
-if (isset($_GET) && isset($_GET['log']) && isset($_GET['n'])){
+if ($method == 'GET'){
     $log = $_GET['log'];
     $n = $_GET['n'];
     $match = matchLogNum($log, $n);
     if ($match == true){
         addUser($log);
-        require('../views/confirm.php');
+        require($root . '/views/confirm.php');
     }
 } 
 

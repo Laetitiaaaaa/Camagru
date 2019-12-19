@@ -2,7 +2,7 @@
 
 <h2>My Account</h2>
 
-<form name="myAccount" method="post" action="../controler/myAccount.php">
+<form name="myAccount" method="post" action="/my-account">
 
 <input name="login" type="text" value=<?php echo $_SESSION['login']; ?>>
 <input name="changeLog" type="submit" value="Change Login"/></br>

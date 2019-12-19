@@ -2,7 +2,7 @@
 
 <h2>Sign In</h2>
 
-<form name="signin" method="post" action="../controler/signIn.php">
+<form name="signin" method="post" action="/sign-in">
 
 <input name="login" type="text" placeholder="Login"/></br>
 <input name="password" type="password" placeholder="Password"/></br>

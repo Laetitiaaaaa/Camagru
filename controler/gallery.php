@@ -1,5 +1,5 @@
 <?php
-require('../models/gallery.php');
+require($root . '/models/gallery.php');
 session_start();
 
 $photo_tab = recoverFiles();
@@ -29,5 +29,5 @@ if ($currentPage < $nbPage){
     $next = $currentPage + 1;
 }
 
-require('../views/gallery.php');
+require($root . '/views/gallery.php');
 ?>

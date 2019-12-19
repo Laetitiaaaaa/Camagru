@@ -1,5 +1,5 @@
 <?php
-include('../config/database.php');
+include($root . '/config/database.php');
 
 function insert_user($login, $mail, $password){
     $password = hash('whirlpool', $password);
