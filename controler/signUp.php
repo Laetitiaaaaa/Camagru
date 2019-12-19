@@ -5,7 +5,7 @@ session_start();
 
 if (isset($_POST) && isset($_POST['login']) && isset($_POST['mail']) && isset($_POST['password'])){
     $suOk = 0;
-    if ($login != "" && $mail != "" && $password != ""){        
+    if ($_POST['login'] != "" && $_POST['mail'] != "" && $_POST['password'] != ""){        
         $login = $_POST['login'];
         $mail = $_POST['mail'];
         $password = $_POST['password'];
