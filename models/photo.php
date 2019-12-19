@@ -28,6 +28,15 @@ function getId($login){
     return $data[0];
 }
 
+function getMail($login){
+    $conn = connexion();
+    $sql = "SELECT `mail` FROM `user` WHERE `login` = '{$login}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    return $data[0]['mail'];
+}
+
 function countLike($id_user, $id_photo){
     $conn = connexion();
     $sql = "SELECT `nb_like` FROM `gallery` WHERE `id_user` = '{$id_user}' AND `id` = '{$id_photo}'";
@@ -67,6 +76,25 @@ function suppPhoto($name){
     $sql .= "DELETE FROM `com` WHERE `picname` = '{$name}';";
     $conn->query($sql);
     $conn = null;
+}
+
+function sendCom($login){
+    $mail = getMail($login);
+    $subject = "Picture's comment";
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= "From: Camagru Team <no_reply@camagru.com>"."\r\n";
+    $message = "
+    <h1>Hello $login!</h1>
+    <p>Someone comments one of your pictures, <a href='http://localhost:8080/controler/signIn/php'>log on</a> to see it :)</p>
+    ";
+    $com = mail($mail, $subject, $message, $headers);
+    if ($com == true){
+        var_dump('com envoyé');
+    }
+    else{
+        var_dump('pb com mail');
+    }
 }
 
 ?>

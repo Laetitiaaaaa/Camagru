@@ -29,6 +29,7 @@ if (isset($_SESSION) && isset($_SESSION['logon']) && isset($_SESSION['login'])){
                     $logUser = $_SESSION['login'];
                     $comment = $_POST['com'];
                     addDbCom($logUser, $comment, $file_img);
+                    sendCom($logUser);
                     $comments = getComment($file_img);
                 }
                 else if ($_POST['supp'] != ""){
