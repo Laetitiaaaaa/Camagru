@@ -2,7 +2,7 @@
 
 <h2>Sign Up</h2>
 
-<form name="signup" method="post" action="../controler/signUp.php">
+<form name="signup" method="post" action="/sign-up">
 
 <input name="login" type="text" placeholder="Login"/></br>
 <input name="mail" type="email" placeholder="Mail address"/></br> 

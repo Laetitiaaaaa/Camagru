@@ -6,32 +6,35 @@ if($method == 'GET'){
 }
 
 if ($method == 'POST'){
-    if ($_POST['login'] != "" && $_POST['mail'] != "" && $_POST['password'] != ""){        
+    if (!empty($_POST['login']) && !empty($_POST['mail']) && !empty($_POST['password'])){        
         $login = $_POST['login'];
         $mail = $_POST['mail'];
         $password = $_POST['password'];
         $resLog = isLogin($login);
         $resMail = isMail($mail);
         $resPasswd = checkPasswd($password);
+
         if ($resLog == false && $resMail == false && $resPasswd == true){
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = $mail;
+            
             insert_user($login, $mail, $password);
-            header('Location: '. $fullDomain . '/sign-up-ok');
-            exit;
+            sendConf($mail, $login);
+            $_SESSION['messInfo'] = 'Success! You\'ll receive a mail soon to confirm your account.';
         }
         else if ($resLog == true || $resMail == true || $resPasswd == false){
             if ($resLog == true){
-                 echo "Login already exists.</br>";
+                 $_SESSION['messInfo']='Login already exists.';
                 }
             if ($resMail == true){
-                echo "Mail already exists.</br>";
+                $_SESSION['messInfo']='Mail already exists.';
             }
             if ($resPasswd == false){
-                echo "Bad password.</br>";
+                $_SESSION['messInfo']='Password not well formated; Password need at least 8 characters, one lowercase and one uppercase.';
             }
         }
     }
     header('Location: ' . $fullDomain . '/sign-up');
+    exit;
 }
 ?>

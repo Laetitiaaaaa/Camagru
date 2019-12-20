@@ -9,6 +9,9 @@ if ($method == 'GET'){
         addUser($log);
         require($root . '/views/confirm.php');
     }
+    else{
+        header('Location: ' . $fullDomain . '/wrongpath');
+    }
 } 
 
 ?>

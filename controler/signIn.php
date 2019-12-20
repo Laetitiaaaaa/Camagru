@@ -13,12 +13,12 @@ if ($method == 'POST'){
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = recoverMail($login);
             $_SESSION['logon'] = 1;
-            // echo "Connection succeed!</br>";
+            $_SESSION['messInfo'] = 'You signed in successfully!';
             header('Location: '. $fullDomain . '/mounting');
             exit;
         }
         else{
-            // echo "Connection failed</br>";
+            $_SESSION['messInfo'] = 'Try again.';
         }
     }
     header('Location: '. $fullDomain . '/sign-in');

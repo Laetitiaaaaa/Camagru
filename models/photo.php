@@ -89,11 +89,20 @@ function sendCom($login){
     <p>Someone comments one of your pictures, <a href='http://localhost:8080/sign-in'>log on</a> to see it :)</p>
     ";
     $com = mail($mail, $subject, $message, $headers);
-    if ($com == true){
-        var_dump('com envoyé');
+    return $com;
+}
+
+function photoExists($idUser, $idPhoto){
+    $conn = connexion();
+    $sql = "SELECT COUNT(*) AS 'count' FROM `gallery` WHERE `id_user` = '{$idUser}' AND `id` = '{$idPhoto}';";
+    $req = $conn->query($sql);
+    $conn = null;
+    $data = $req->fetchAll(PDO::FETCH_ASSOC);
+    if ($data[0]['count'] > 0){
+        return true;
     }
     else{
-        var_dump('pb com mail');
+        return false;
     }
 }
 
