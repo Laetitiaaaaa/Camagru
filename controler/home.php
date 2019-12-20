@@ -14,7 +14,7 @@ if ($method == 'POST'){
     if (!empty($_FILES['download'])){
         $img = $_FILES['download'];
         if ($img['type'] != 'image/png'){
-            var_dump('mauvais format');
+            $_SESSION['messInfo'] = 'Wrong format, only png file accepted.';
         }
         else{
             $num = rand(0, 100000);
@@ -31,6 +31,7 @@ if ($method == 'POST'){
         }
     }
     header('Location: ' . $fullDomain . '/mounting');
+    exit;
 }
 
 ?>
