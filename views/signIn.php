@@ -10,6 +10,10 @@
 <a href="/forgot-pass">Forgot your password ?</a>
 
 </form> -->
+
+<div class="container">
+  <div class="notification">
+
 <form name="signin" method="post" action="/sign-in">
 
 <div class="field">
@@ -30,11 +34,12 @@
 </div>
 <div class="field">
   <p class="control">
-    <input name="submit" type="submit" class="button is-primary" value="Sign in"></br>      
+    <input name="submit" type="submit" class="button is-success" value="Sign in"></br>      
   </p>
 </div>
 </form>
 
-
+</div>
+</div>
 
 <?php include('footer.php'); ?>

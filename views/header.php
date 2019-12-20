@@ -61,6 +61,10 @@
         </nav>
 
 <?php if (isset($_SESSION['messInfo']) && !empty($_SESSION['messInfo'])) { ?>
+
+  <div class="notification is-primary">
     <p><?php echo $_SESSION['messInfo'];
         unset($_SESSION['messInfo']); ?></p>
+  </div>
+
 <?php } ?>
