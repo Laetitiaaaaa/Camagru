@@ -8,11 +8,11 @@
 
 <?php 
 if (isset($previous)){
-    echo '</br><a href="/controler/gallery.php?page=' . $previous . '">Previous</a>';
+    echo '</br><a href="/gallery?page=' . $previous . '">Previous</a>';
 }
 if ($nbPage == 0){$nbPage = 1;}
 echo ' ' . $currentPage . '/' . $nbPage . ' ';
 if (isset($next)){
-    echo '<a href="/controler/gallery.php?page=' . $next . '">Next</a>';
+    echo '<a href="/gallery?page=' . $next . '">Next</a>';
 }
 ?>

@@ -47,15 +47,10 @@ function sendPass($mail){
         $headers .= "From: Camagru Team <no_reply@camagru.com>"."\r\n";
         $message = "
         <h1>No worries $login!</h1>
-        <p>To change your password, click <a href='http://localhost:8080/controler/changePass.php?log=$login&n=$num'>here</a>.</p>
+        <p>To change your password, click <a href='http://localhost:8080/change-pass?log=$login&n=$num'>here</a>.</p>
         ";
         $chpass = mail($mail, $subject, $message, $headers);
-        if ($chpass == true){
-            var_dump("chpass envoyé");
-        }
-        else{
-            var_dump("pb mail chpass");
-        }
+        return $chpass;
     }
 }
 

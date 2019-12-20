@@ -1,14 +1,13 @@
 <?php
 require($root . '/models/gallery.php');
-session_start();
 
 $photo_tab = recoverFiles();
 $limit = 5;
 $nbPhoto = countPhoto();
 $nbPage = ceil($nbPhoto / $limit);
 
-if (isset($_GET) && isset($_GET['page'])){
-    if ($_GET['page'] != "" && $_GET['page'] > 0 && $_GET['page'] <= $nbPage){
+if ($method == 'GET'){
+    if (!empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPage){
         $_GET['page'] = intval($_GET['page']); // transforme var en nb
         $currentPage = $_GET['page'];
     }

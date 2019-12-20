@@ -16,9 +16,16 @@ else{
 }
 
 //**********permission**************************** */
-// $private = false;
+$private = false;
 
-// if ($uri == '/home' ||)
+if ($uri == '/mounting' || $uri == '/my-account' || preg_match('/\/photo/', $uri) == 1 || $uri == '/sign-out'){
+    $private = true;
+}
+if ($private == true && $auth == false){
+    $_SESSION['messInfo'] = 'You need to sign in to access this page.';
+    header('Location: ' . $fullDomain . '/sign-in');
+    exit;
+}
 
 //*************redirection************************* */
 

@@ -2,39 +2,44 @@
 require($root . '/models/changePass.php');
 
 if ($method == 'GET'){
-    if ($_GET['log'] != "" && $_GET['n'] != ""){
+    if (!empty($_GET['log']) && !empty($_GET['n'])){
         $matchLN = matchLogNum($_GET['log'], $_GET['n']);
         if ($matchLN == true){
             $login = $_GET['log'];
-            $_SESSION['log'] = $login;
             $num = $_GET['n'];
+           
             require($root . '/views/changePass.php');           
         }
         else{
-            var_dump("login and num don't match.");
+            header('Location: ' . $fullDomain . '/wrongPath');
+            exit;
         }
     }
 }
 
 if ($method = 'POST'){
-    if ($_POST['password'] != "" && $_POST['verif'] != "" && $_SESSION['log'] != ""){
+    if (!empty($_POST['password']) && !empty($_POST['verif']) && !empty($_POST['log']) && !empty($_POST['n'])){
         $password = $_POST['password'];
         $verif = $_POST['verif'];
-        $login = $_SESSION['log'];
+        $login = $_POST['log'];
+        $n = $_POST['n'];
+        
         $matchPV = matchPassVerif($password, $verif);
         if ($matchPV == true){
             if (checkPasswd($password) == true){
                 changePass($login, $password);
-                require($root . '/views/changeOk.php');
+                $_SESSION['messInfo'] = 'Your password has been successfully changed! You can now <a href="http://localhost:8080/sign-in">sign in</a>.';
             }
             else{
-                var_dump("Password not well formated.");
-                header('Location: ' . $fullDomain . '/change-pass');
+                $_SESSION['messInfo'] = 'Password not well formated; Password need at least 8 characters, one lowercase and one uppercase.';
+
             }
         }
         else{
-            var_dump("password and verif are differents.");
+            $_SESSION['messInfo'] = 'Please right the same password twice.';
         }
+        header('Location: ' . $fullDomain . '/change-pass?log=' . $login . '&n=' . $n);
+        exit;
     }
 }
 ?>

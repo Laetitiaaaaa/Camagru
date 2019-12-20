@@ -86,7 +86,7 @@ function sendCom($login){
     $headers .= "From: Camagru Team <no_reply@camagru.com>"."\r\n";
     $message = "
     <h1>Hello $login!</h1>
-    <p>Someone comments one of your pictures, <a href='http://localhost:8080/controler/signIn/php'>log on</a> to see it :)</p>
+    <p>Someone comments one of your pictures, <a href='http://localhost:8080/sign-in'>log on</a> to see it :)</p>
     ";
     $com = mail($mail, $subject, $message, $headers);
     if ($com == true){
