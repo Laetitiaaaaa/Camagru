@@ -30,7 +30,13 @@ function addTableGallery($login, $filename){
 function put_image($login, $filename, $filtername){
     var_dump($filtername);
     $name = str_replace('gallery/uploadedPictures/', '', $filename);
-    $newone = 'gallery/newPictures/' . $name;
+    if (fileExists($name) != 0){
+        $num = rand(0, 500);
+        $new = '_' . $num . '.png';
+        $name = str_replace('.png', $new, $name);
+    }
+    $newone = 'gallery/newPictures/' . $name;    
+    echo $newone;
     copy($filename, $newone);
     $src = imagecreatefrompng($filtername);
     $dest = imagecreatefrompng($newone);
@@ -46,13 +52,6 @@ function put_image($login, $filename, $filtername){
     else if ($filtername == 'filters/fox.png'){
         imagecopy($dest, $src, 430, 210, 0, 0, 200, 400);  
     }
-    if (fileExists($name) != 0){
-        $num = rand(0, 500);
-        $new = '_' . $num . '.png';
-        $newone = str_replace('.png', $new, $newone);
-        $name = str_replace('/gallery/', '', $name);
-    }
-    echo $newone;
     $bool = imagepng($dest, $newone);
     if ($bool == true){
         addTableGallery($login, $name);

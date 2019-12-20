@@ -1,37 +1,17 @@
 <?php
 require($root . '/models/home.php');
 
-if($method == 'POST'){
-    if ($_POST['picture'] != "" && $_POST['filterpic'] != ""){
-        $img = $_POST['picture'];
-        $filter = $_POST['filterpic'];
-        $ans = true;
-        $login = $_SESSION['login'];
-        if (isPath($img) == false){
-            $tab = save_cam($img, $login);
-            $ans = $tab[1];
-            $filename = $tab[0];
-        }
-        else{
-            $filename = $img;
-        }
-        if ($ans != false){
-            if ($filter == 'dino'){
-                $filtername = 'filters/dino.png';
-            }
-            else if ($filter == 'heart'){
-                $filtername = 'filters/coeurs.png';
-            }
-            else if ($filter == 'eve'){
-                $filtername = 'filters/eveuh.png';
-            }
-            else if ($filter == 'fox'){
-                $filtername = 'filters/fox.png';
-            }
-            put_image($_SESSION['login'], $filename, $filtername);
-        }
+if ($method == 'GET'){
+    if (!empty($_SESSION['filename'])){
+        $filename = $_SESSION['filename'];
+        unset($_SESSION['filename']);
     }
-    else if ($_FILES['download'] != ""){
+    require($root . '/views/home.php');
+}
+
+if ($method == 'POST'){
+
+    if (!empty($_FILES['download'])){
         $img = $_FILES['download'];
         if ($img['type'] != 'image/png'){
             var_dump('mauvais format');
@@ -47,9 +27,10 @@ if($method == 'POST'){
             }
             $filename = 'gallery/uploadedPictures/' . $name;
             move_uploaded_file($tmp_name, $filename);
+            $_SESSION['filename'] = $filename;
         }
     }
+    header('Location: ' . $fullDomain . '/mounting');
 }
-require($root . '/views/home.php');
 
 ?>

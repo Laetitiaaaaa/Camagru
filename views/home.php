@@ -12,12 +12,12 @@
     <div id="bluebox" style="display:inline-block; border:3px solid blue;width: 50%;">
       
       <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
-      <?php if (isset($_FILES['download']) && $_FILES['download'] != ""){?>
+      <?php if (isset($filename) && !empty($filename)){?>
       <img id="imgUploaded" src="<?php echo $filename ?>" alt="file" style="width:100%; position: relative; z-index: 1;">
       <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
       <?php } ?>
       </div>
-      <?php if (isset($_FILES['download']) && $_FILES['download'] != ""){ ?>
+      <?php if (isset($filename) && !empty($filename)){ ?>
       <input type="submit" id="photoButton" onclick="pushPic()" value="Take Picture">
       <?php } ?>
     </div>
@@ -142,7 +142,7 @@ function postData(dataPic, dataSel){
     var formData = new FormData();
     formData.append('picture', dataPic);
     formData.append('filterpic', dataSel);
-    httpRequest.open('POST', '/mounting');
+    httpRequest.open('POST', '/add-filter');
     httpRequest.send(formData);
 }
 

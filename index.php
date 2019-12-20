@@ -62,6 +62,9 @@ else if ($uri == '/my-account'){
 else if (preg_match('/\/photo/', $uri) == 1){
     require('./controler/photo.php');
 }
+else if ($uri == '/add-filter'){
+    require('./controler/addFilter.php');
+}
 else{
     echo '404 Error';
 }
