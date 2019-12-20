@@ -36,13 +36,17 @@ if ($method == 'POST')
             $comment = $_POST['com'];
             
             addDbCom($logUser, $comment, $file_img);
-            $comSent = sendCom($logUser);
-            if ($comSent == true){
-                $_SESSION['messInfo'] = 'Mail sent';
+
+            if (empty($_SESSION['pref']) || $_SESSION['pref'] == 'yes'){
+                $comSent = sendCom($logUser);
+                if ($comSent == true){
+                    $_SESSION['messInfo'] = 'Mail sent';
+                }
+                else{
+                    $_SESSION['messInfo'] = 'Mail can\'t be sent.';
+                }
             }
-            else{
-                $_SESSION['messInfo'] = 'Mail can\'t be sent.';
-            }
+            
             $comments = getComment($file_img);
         }
         else if (!empty($_POST['supp'])){

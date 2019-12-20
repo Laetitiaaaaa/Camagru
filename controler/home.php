@@ -31,7 +31,7 @@ if($method == 'POST'){
             put_image($_SESSION['login'], $filename, $filtername);
         }
     }
-    else if (isset($_FILES) && $_FILES['download'] != ""){
+    else if ($_FILES['download'] != ""){
         $img = $_FILES['download'];
         if ($img['type'] != 'image/png'){
             var_dump('mauvais format');

@@ -24,6 +24,10 @@ if ($method == 'POST'){
         changePass($_SESSION['login'], $newPass, $verif);
         $_SESSION['messInfo'] = 'Your password has been successfully changed.';
     }
+    else if (!empty($_POST['preference']) && !empty($_POST['pref'])){
+        $_SESSION['pref'] = $_POST['preference'];
+        $_SESSION['messInfo'] = 'Your preference has been successfully changed.';
+    }
     header('Location: ' . $fullDomain . '/my-account');
     exit;
 }
