@@ -10,7 +10,15 @@ if ($method == 'GET'){
         require($root . '/views/confirm.php');
     }
     else{
-        header('Location: ' . $fullDomain . '/wrongpath');
+        $_SESSION['messInfo'] = 'Wrong path';
+        if ($_SESSION['logon'] == 1){
+            header('Location: ' . $fullDomain . '/gallery');
+            exit;
+        }
+        else{
+            header('Location: ' . $fullDomain . '/sign-in');
+            exit;
+        }
     }
 } 
 

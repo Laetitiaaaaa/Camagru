@@ -29,7 +29,7 @@ if ($private == true && $auth == false){
 
 //*************redirection************************* */
 
-if ($uri == '/'){
+if ($uri == '/' || $uri == ''){
     require('./controler/gallery.php');
 }
 else if ($uri == '/sign-in'){

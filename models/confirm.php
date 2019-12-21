@@ -20,7 +20,6 @@ function suppUsersub($login){
     $sql = "DELETE FROM `user_sub` WHERE `login` = '{$login}'";
     $conn->query($sql);
     $conn = null;
-    var_dump("user sub deleted");
 }
 
 function get_user($login){
@@ -37,7 +36,6 @@ function addUser($login){
     suppUsersub($login);
     $sql = "INSERT INTO `user` (`login`, `mail`, `password`) VALUES ('{$user['login']}', '{$user['mail']}', '{$user['password']}');";
     $conn->query($sql);
-    var_dump("user inserted");
 }
 
 ?>
