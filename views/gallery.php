@@ -24,12 +24,6 @@
     <div class="column is-1"></div>
 </div>
 
-
-
-
-
-
-
 <?php 
 if ($nbPage == 0){
     $nbPage = 1;
@@ -40,17 +34,19 @@ if ($nbPage == 0){
 
     <ul class="pagination-list">
 
-    <?php if (isset($previous)){ ?>
-    <li><a class="pagination-previous" href="/gallery?page=<?php echo $previous ?>">Previous</a></li>
-    <?php } ?>
+        <?php if (isset($previous)){ ?>
+        <li><a class="pagination-previous" href="/gallery?page=<?php echo $previous ?>">Previous</a></li>
+        <?php } ?>
 
-    <li><?php echo $currentPage . '/' . $nbPage . ' '; ?><li>
+        <li><?php echo $currentPage . '/' . $nbPage . ' '; ?><li>
 
-    <?php if (isset($next)){ ?>
-    <li><a class="pagination-next" href="/gallery?page=<?php echo $next ?>">Next page</a><li>
-    <?php } ?>
+        <?php if (isset($next)){ ?>
+        <li><a class="pagination-next" href="/gallery?page=<?php echo $next ?>">Next page</a><li>
+        <?php } ?>
   
     </ul>
     
     </nav>
 </div>
+
+<?php include('footer.php');?>
