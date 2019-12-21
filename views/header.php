@@ -8,14 +8,14 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
         <link href="/views/all.css" rel="stylesheet">
     </head>
-    <body>
+    <body style="height: 100vh;">
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-brand">
             <a class="navbar-item" href="/">
               <?php require $root . '/logo.html'; ?>
             </a>
         
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" id="troisbarres" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -28,7 +28,7 @@
               <a class="navbar-item" href="/gallery?page=1">Gallery</a>
             </div>
         
-        <?php if ($_SESSION['logon'] != 1){?>
+        <?php if ($auth == false){?>
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
@@ -43,7 +43,7 @@
             </div>
         <?php } ?>
         
-        <?php if ($_SESSION['logon'] == 1){?>
+        <?php if ($auth == true){?>
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
@@ -69,3 +69,15 @@
   </div>
 
 <?php } ?>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', () => {
+	$target = document.getElementById("troisbarres");
+	$target.addEventListener('click', () => {
+		$target.classList.toggle('is-active');
+		document.getElementById("navbarBasicExample").classList.toggle('is-active');
+	});
+});
+
+</script>
