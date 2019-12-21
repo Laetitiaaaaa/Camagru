@@ -1,17 +1,5 @@
 <?php include('header.php');?>
 
-<!-- <h2>Sign Up</h2>
-
-<form name="signup" method="post" action="/sign-up">
-
-<input name="login" type="text" placeholder="Login"/></br>
-<input name="mail" type="email" placeholder="Mail address"/></br> 
-<input name="password" type="password" placeholder="Password"/></br>
-<input name="submit" type="submit" value="Sign up"></br>
-Already registered ? <a href="/sign-in">Sign In</a>
-
-</form> -->
-
 <section class="section">
     <div class="container" style="width:40%;">
 
@@ -26,7 +14,7 @@ Already registered ? <a href="/sign-in">Sign In</a>
         </section>
 
         <div class="notification">
-            <form name="signin" method="post" action="/sign-up">
+            <form name="signup" method="post" action="/sign-up">
 
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
@@ -39,7 +27,7 @@ Already registered ? <a href="/sign-in">Sign In</a>
 
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
-                        <input name="mail" class="input" type="text" placeholder="Email">
+                        <input name="mail" class="input" type="email" placeholder="Email">
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
