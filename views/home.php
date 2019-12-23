@@ -30,7 +30,6 @@
 <script>
 
 var constraints = { audio: false, video: true };
-var filter = document.querySelector('#putfilter');
 var select = document.getElementById('filter');
 var httpRequest = new XMLHttpRequest;
 
@@ -147,7 +146,9 @@ function postData(dataPic, dataSel){
 }
 
 function changeFilter() {
+  var filter = document.getElementById('putfilter');
   var choice = document.getElementById('filter').value;
+  alert(choice);
   if (choice == 'dino'){
     filter.setAttribute('alt', 'dino');
     filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; width:52%; z-index: 2;');
