@@ -6,7 +6,10 @@ if ($method == 'GET'){
     $limit = 5;
     $nbPhoto = countPhoto();
     $nbPage = ceil($nbPhoto / $limit);
-    
+    if ($photo_tab === 'error' || $nbPage === 'error'){
+        $_SESSION['messInfo'] = 'Error.';
+    }
+
     if (!empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPage){
         $_GET['page'] = intval($_GET['page']);
         $currentPage = $_GET['page'];
@@ -17,6 +20,9 @@ if ($method == 'GET'){
     
     $start = ($currentPage - 1) * $limit;
     $pageGallery = limitPhoto($start, $limit);
+    if($pageGallery === 'error'){
+        $_SESSION['messInfo'] = 'Error.';
+    }
     
     if ($currentPage > 1){
         $previous = $currentPage - 1;
@@ -24,7 +30,12 @@ if ($method == 'GET'){
     if ($currentPage < $nbPage){
         $next = $currentPage + 1;
     }
+
     require($root . '/views/gallery.php');
+}
+
+else{
+    echo '404 Error';
 }
 
 ?>
