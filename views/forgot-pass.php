@@ -31,7 +31,7 @@
             
             <div class="field">
                 <p class="control">
-                    <input name="submit" type="submit" value="Send">
+                    <input name="submit" type="submit" class="button is-success" value="Send">
                 </p>
             </div>
         </form>
