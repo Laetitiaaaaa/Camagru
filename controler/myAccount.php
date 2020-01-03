@@ -2,6 +2,9 @@
 require($root . '/models/myAccount.php');
 
 if ($method == 'GET'){
+    if (!isset($_SESSION['pref'])){
+        $_SESSION['pref'] = 'yes' ;
+    }
     require($root . '/views/myAccount.php');
 }
 
