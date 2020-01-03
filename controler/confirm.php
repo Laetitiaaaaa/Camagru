@@ -3,8 +3,8 @@ require($root . '/models/confirm.php');
 
 if ($method == 'GET'){
     if (!empty($_GET['log']) && !empty($_GET['n'])){
-        $log = $_GET['log'];
-        $n = $_GET['n'];
+        $log = htmlspecialchars($_GET['log']);
+        $n = htmlspecialchars($_GET['n']);
         $match = matchLogNum($log, $n);
         
         if ($match === true){

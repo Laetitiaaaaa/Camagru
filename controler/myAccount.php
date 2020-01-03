@@ -7,7 +7,7 @@ if ($method == 'GET'){
 
 else if ($method == 'POST'){
     if (!empty($_POST['login']) && !empty($_POST['changeLog'])){
-        $login = $_POST['login'];
+        $login = htmlspecialchars($_POST['login']);
         $check = changeLog($_SESSION['login'], $login);
 
         if ($check === true){
@@ -22,7 +22,7 @@ else if ($method == 'POST'){
         }
     }
     else if (!empty($_POST['mail']) && !empty($_POST['changeMail'])){
-        $mail = $_POST['mail'];
+        $mail = htmlspecialchars($_POST['mail']);
         $check = changeMail($_SESSION['login'], $mail);
 
         if ($check === true){
@@ -37,8 +37,8 @@ else if ($method == 'POST'){
         }
     }
     else if (!empty($_POST['password']) && !empty($_POST['verif']) && !empty($_POST['changePass'])){
-        $newPass = $_POST['password'];
-        $verif = $_POST['verif'];
+        $newPass = htmlspecialchars($_POST['password']);
+        $verif = htmlspecialchars($_POST['verif']);
         $check = changePass($_SESSION['login'], $newPass, $verif);
 
         if($check === true){

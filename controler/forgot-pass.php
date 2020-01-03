@@ -7,7 +7,7 @@ if ($method == 'GET'){
 
 else if ($method == 'POST'){
     if (!empty($_POST['mail'])){
-        $mail = $_POST['mail'];
+        $mail = htmlspecialchars($_POST['mail']);
         $change = sendPass($mail);
 
         if ($change === true){

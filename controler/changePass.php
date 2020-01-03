@@ -3,10 +3,10 @@ require($root . '/models/changePass.php');
 
 if ($method == 'GET'){
     if (!empty($_GET['log']) && !empty($_GET['n'])){
-        $matchLN = matchLogNum($_GET['log'], $_GET['n']);
+        $matchLN = matchLogNum(htmlspecialchars($_GET['log']), htmlspecialchars($_GET['n']));
         if ($matchLN === true){
-            $login = $_GET['log'];
-            $num = $_GET['n'];
+            $login = htmlspecialchars($_GET['log']);
+            $num = htmlspecialchars($_GET['n']);
            
             require($root . '/views/changePass.php');           
         }
@@ -19,10 +19,10 @@ if ($method == 'GET'){
 
 else if ($method = 'POST'){
     if (!empty($_POST['password']) && !empty($_POST['verif']) && !empty($_POST['log']) && !empty($_POST['n'])){
-        $password = $_POST['password'];
-        $verif = $_POST['verif'];
-        $login = $_POST['log'];
-        $n = $_POST['n'];
+        $password = htmlspecialchars($_POST['password']);
+        $verif = htmlspecialchars($_POST['verif']);
+        $login = htmlspecialchars($_POST['log']);
+        $n = htmlspecialchars($_POST['n']);
         
         $matchPV = matchPassVerif($password, $verif);
         if ($matchPV == true){

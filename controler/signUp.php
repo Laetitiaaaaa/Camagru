@@ -7,9 +7,9 @@ if($method == 'GET'){
 
 else if ($method == 'POST'){
     if (!empty($_POST['login']) && !empty($_POST['mail']) && !empty($_POST['password'])){        
-        $login = $_POST['login'];
-        $mail = $_POST['mail'];
-        $password = $_POST['password'];
+        $login = htmlspecialchars($_POST['login']);
+        $mail = htmlspecialchars($_POST['mail']);
+        $password = htmlspecialchars($_POST['password']);
         $resLog = isLogin($login);
         $resMail = isMail($mail);
         $resPasswd = checkPasswd($password);

@@ -2,8 +2,8 @@
 require($root . '/models/home.php');
 
 if (!empty($_POST['picture']) && !empty($_POST['filterpic'])){
-    $img = $_POST['picture'];
-    $filter = $_POST['filterpic'];
+    $img = htmlspecialchars($_POST['picture']);
+    $filter = htmlspecialchars($_POST['filterpic']);
     $login = $_SESSION['login'];
     $ans = true;
 

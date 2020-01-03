@@ -3,8 +3,8 @@ require($root . '/models/photo.php');
 
 if ($method == 'GET'){
     if (!empty($_GET['log']) && !empty($_GET['n'])){
-        $id_user = getId($_GET['log']);
-        $id_photo = $_GET['n'];
+        $id_user = getId(htmlspecialchars($_GET['log']));
+        $id_photo = htmlspecialchars($_GET['n']);
         $photo = photoExists($id_user['id'], $id_photo);
 
         if ($photo === false || $photo === 'error' || $id_user === 'error'){
@@ -26,9 +26,9 @@ if ($method == 'GET'){
 else if ($method == 'POST')
 {
     if (!empty($_POST['namePhoto']) && !empty($_POST['logUser']) && !empty($_POST['idPhoto'])){
-        $file_img = $_POST['namePhoto'];
-        $idUser = getId($_POST['logUser']);
-        $idPhoto = $_POST['idPhoto'];
+        $file_img = htmlspecialchars($_POST['namePhoto']);
+        $idUser = getId(htmlspecialchars($_POST['logUser']));
+        $idPhoto = htmlspecialchars($_POST['idPhoto']);
 
         if (!empty($_POST['like'])){
             $like = likePhoto($file_img);
@@ -39,7 +39,7 @@ else if ($method == 'POST')
         }
         else if (!empty($_POST['com']) && !empty($_POST['subcom'])){
             $logUser = $_SESSION['login'];
-            $comment = $_POST['com'];
+            $comment = htmlspecialchars($_POST['com']);
             
             addDbCom($logUser, $comment, $file_img);
             if ($addDbCom === 'error'){

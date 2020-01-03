@@ -11,8 +11,8 @@ if ($method == 'GET'){
     }
 
     if (!empty($_GET['page']) && $_GET['page'] > 0 && $_GET['page'] <= $nbPage){
-        $_GET['page'] = intval($_GET['page']);
-        $currentPage = $_GET['page'];
+        $_GET['page'] = htmlspecialchars(intval($_GET['page']));
+        $currentPage = htmlspecialchars($_GET['page']);
     }
     else{
         $currentPage = 1;
