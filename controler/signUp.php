@@ -5,7 +5,7 @@ if($method == 'GET'){
     require($root . '/views/sign_up.php');
 }
 
-if ($method == 'POST'){
+else if ($method == 'POST'){
     if (!empty($_POST['login']) && !empty($_POST['mail']) && !empty($_POST['password'])){        
         $login = $_POST['login'];
         $mail = $_POST['mail'];
@@ -14,27 +14,42 @@ if ($method == 'POST'){
         $resMail = isMail($mail);
         $resPasswd = checkPasswd($password);
 
-        if ($resLog == false && $resMail == false && $resPasswd == true){
+        if ($resLog === false && $resMail === false && $resPasswd === true){
             $_SESSION['login'] = $login;
             $_SESSION['mail'] = $mail;
             
-            insert_user($login, $mail, $password);
-            sendConf($mail, $login);
-            $_SESSION['messInfo'] = 'Success! You\'ll receive a mail soon to confirm your account.';
+            if (insert_user($login, $mail, $password) === true){
+                if (sendConf($mail, $login) === true){
+                    $_SESSION['messInfo'] = 'Success! You\'ll receive a mail soon to confirm your account.';
+                }
+                else{
+                    $_SESSION['messInfo'] = 'Can\'t send mail.';
+                }
+            }
+            else{
+                $_SESSION['messInfo'] = 'Error.';
+            }
         }
-        else if ($resLog == true || $resMail == true || $resPasswd == false){
-            if ($resLog == true){
+        else if ($resLog === true || $resMail === true || $resPasswd === false){
+            if ($resLog === true){
                  $_SESSION['messInfo']='Login already exists.';
                 }
-            if ($resMail == true){
+            if ($resMail === true){
                 $_SESSION['messInfo']='Mail already exists.';
             }
-            if ($resPasswd == false){
+            if ($resPasswd === false){
                 $_SESSION['messInfo']='Password not well formated; Password need at least 8 characters, one lowercase and one uppercase.';
             }
+        }
+        else{
+            $_SESSION['messInfo'] = 'Error';
         }
     }
     header('Location: ' . $fullDomain . '/sign-up');
     exit;
+}
+
+else{
+    echo '404 Error';
 }
 ?>

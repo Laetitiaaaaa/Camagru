@@ -2,39 +2,54 @@
 include($root . '/config/database.php');
 
 function insert_user($login, $mail, $password){
-    $password = hash('whirlpool', $password);
-    $conn = connexion();
-    $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
-    $conn->query($sql);
-    $conn = null;
-    var_dump("user inserted !");
+    try{
+        $password = hash('whirlpool', $password);
+        $conn = connexion();
+        $sql = "INSERT INTO `user_sub`(`login`, `mail`, `password`) VALUES ('{$login}', '{$mail}', '{$password}')";
+        $conn->query($sql);
+        $conn = null;
+        return true;
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 function isLogin($login){
-    $conn = connexion();
-    $sql = "SELECT `login` FROM `user_sub` WHERE `login` = '{$login}' UNION SELECT `login` FROM `user` WHERE `login` = '{$login}';";
-    $req = $conn->query($sql);
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    $conn = null;
-    if ($data){
-        return true;
+    try{
+        $conn = connexion();
+        $sql = "SELECT `login` FROM `user_sub` WHERE `login` = '{$login}' UNION SELECT `login` FROM `user` WHERE `login` = '{$login}';";
+        $req = $conn->query($sql);
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        $conn = null;
+        if ($data){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else{
-        return false;
+    catch(Exception $err){
+        return 'error';
     }
 }
 
 function isMail($mail){
-    $conn = connexion();
-    $sql = "SELECT `mail` FROM `user_sub` WHERE `mail` = '{$mail}' UNION SELECT `mail` FROM `user` WHERE `mail` = '{$mail}';";
-    $req = $conn->query($sql);
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    $conn = null;
-    if ($data){
-        return true;
+    try{
+        $conn = connexion();
+        $sql = "SELECT `mail` FROM `user_sub` WHERE `mail` = '{$mail}' UNION SELECT `mail` FROM `user` WHERE `mail` = '{$mail}';";
+        $req = $conn->query($sql);
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        $conn = null;
+        if ($data){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else{
-        return false;
+    catch(Exception $err){
+        return 'error';
     }
 }
 
@@ -48,34 +63,30 @@ function checkPasswd($password){
                 if (strlen($password) > 7){
                     return true;
                 }
-                else{
-                    return false;
-                }
-            }
-            else{
-                return false;
             }
         }
-        else{
-            return false;
-        }
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 function insertNum($login, $num){
-    $conn = connexion();
-    $sql = "UPDATE `user_sub` SET `num` = '{$num}' WHERE `login` = '{$login}';";
-    $conn->query($sql);
-    $conn = null;
-    var_dump("num inserted");
+    try{
+        $conn = connexion();
+        $sql = "UPDATE `user_sub` SET `num` = '{$num}' WHERE `login` = '{$login}';";
+        $conn->query($sql);
+        $conn = null;
+        return true;
+    }
+    catch(Exception $err){
+        return 'error';
+    }
 }
 
 function sendConf($mail, $login){
     $num = rand(0, 1000000);
-    insertNum($login, $num);
+    if (insertNum($login, $num) != true){
+        return 'error';
+    }
     $subject = "Confirm your account";
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -86,10 +97,10 @@ function sendConf($mail, $login){
     ";
     $conf = mail($mail, $subject, $message, $headers);
     if ($conf == true){
-        var_dump("conf envoyée");
+        return true;
     }
     else{
-        var_dump("pb mail");
+        return false;
     }
 }
 
