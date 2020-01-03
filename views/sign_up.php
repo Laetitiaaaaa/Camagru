@@ -1,7 +1,7 @@
 <?php include('header.php');?>
 
 <section class="section">
-    <div class="container" style="width:40%;">
+    <div class="container">
 
         <section class="hero is-dark">
             <div class="hero-body">
