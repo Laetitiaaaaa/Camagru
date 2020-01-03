@@ -2,16 +2,21 @@
 include($root . '/config/database.php');
 
 function matchLogNum($login, $num){
-    $conn = connexion();
-    $sql = "SELECT * FROM `user` WHERE `login` = '{$login}' AND `num` = '{$num}';";
-    $req = $conn->query($sql);
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    $conn = null;
-    if ($data){
-        return true;
+    try{
+        $conn = connexion();
+        $sql = "SELECT * FROM `user` WHERE `login` = '{$login}' AND `num` = '{$num}';";
+        $req = $conn->query($sql);
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        $conn = null;
+        if ($data){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else{
-        return false;
+    catch(PDOException $err){
+        return 'error';
     }
 }
 
@@ -26,12 +31,17 @@ function matchPassVerif($password, $verif){
 }
 
 function changePass($login, $password){
-    $password = hash('whirlpool', $password);
-    $conn = connexion();
-    $sql = "UPDATE `user` SET `password` = '{$password}' WHERE `login` = '{$login}';";
-    $conn->query($sql);
-    $conn = null;
-    var_dump("password updated");
+    try{
+        $password = hash('whirlpool', $password);
+        $conn = connexion();
+        $sql = "UPDATE `user` SET `password` = '{$password}' WHERE `login` = '{$login}';";
+        $conn->query($sql);
+        $conn = null;
+        return true;      
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 function checkPasswd($password){
@@ -44,21 +54,10 @@ function checkPasswd($password){
                 if (strlen($password) > 7){
                     return true;
                 }
-                else{
-                    return false;
-                }
-            }
-            else{
-                return false;
             }
         }
-        else{
-            return false;
-        }
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 ?>
