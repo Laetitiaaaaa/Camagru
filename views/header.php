@@ -32,7 +32,7 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a class="button is-primary" href="/sign-up">
+                  <a class="button is-danger" href="/sign-up">
                     <strong>Sign up</strong>
                   </a>
                   <a class="button is-light" href="/sign-in">
@@ -47,7 +47,7 @@
             <div class="navbar-end">
               <div class="navbar-item">
                 <div class="buttons">
-                  <a class="button is-primary" href="/my-account">
+                  <a class="button is-danger" href="/my-account">
                     <strong>My Account</strong>
                   </a>
                   <a class="button is-light" href="/sign-out">
