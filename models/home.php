@@ -4,9 +4,12 @@ include($root . '/config/database.php');
 function save_cam($img, $login){
     $img = str_replace('data:image/png;base64,', '', $img);
     $data = base64_decode($img);
+    if ($data === false){
+        return 'error';
+    }
     $num = rand(0, 100000);
     $img_name = $login . '_' . $num . '.png';
-    if (fileExists($img_name) != 0){
+    if (fileExists($img_name) != 0 && fileExists($img_name) !== 'error'){
         $num = rand(0, 500);
         $new = '_' . $num . '.png';
         $img_name = str_replace('.png', $new, $img_name);
@@ -21,16 +24,21 @@ function save_cam($img, $login){
 }
 
 function addTableGallery($login, $filename){
-    $conn = connexion();
-    $sql = "INSERT INTO `gallery` (`id_user`, `path`) VALUES ((SELECT `id` FROM `user` WHERE `login` = '{$login}'), '{$filename}');";
-    $conn->query($sql);
-    $conn = null;
+    try{
+        $conn = connexion();
+        $sql = "INSERT INTO `gallery` (`id_user`, `path`) VALUES ((SELECT `id` FROM `user` WHERE `login` = '{$login}'), '{$filename}');";
+        $conn->query($sql);
+        $conn = null;
+        return true;
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 function put_image($login, $filename, $filtername){
-    var_dump($filtername);
     $name = str_replace('gallery/uploadedPictures/', '', $filename);
-    if (fileExists($name) != 0){
+    if (fileExists($name) != 0 && fileExists($name) !== 'error'){
         $num = rand(0, 500);
         $new = '_' . $num . '.png';
         $name = str_replace('.png', $new, $name);
@@ -54,10 +62,13 @@ function put_image($login, $filename, $filtername){
     }
     $bool = imagepng($dest, $newone);
     if ($bool == true){
-        addTableGallery($login, $name);
+        if (addTableGallery($login, $name) === 'error'){
+            return 'error';
+        }
+        return true;
     }
     else{
-        var_dump('pb enregistrement montage');
+        return 'pb montage';
     }
 }
 
@@ -70,12 +81,17 @@ function isPath($img){
 }
 
 function fileExists($name){
-    $conn = connexion();
-    $sql = "SELECT COUNT(`path`) AS 'count' FROM `gallery` WHERE `path` = '{$name}';";
-    $req = $conn->query($sql);
-    $conn = null;
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    return $data[0]['count'];
+    try{
+        $conn = connexion();
+        $sql = "SELECT COUNT(`path`) AS 'count' FROM `gallery` WHERE `path` = '{$name}';";
+        $req = $conn->query($sql);
+        $conn = null;
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data[0]['count'];
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 ?>

@@ -9,8 +9,15 @@ if (!empty($_POST['picture']) && !empty($_POST['filterpic'])){
 
     if (isPath($img) == false){
         $tab = save_cam($img, $login);
-        $ans = $tab[1];
-        $filename = $tab[0];
+        if ($tab !== 'error'){
+            $ans = $tab[1];
+            $filename = $tab[0];
+        }
+        else{
+            $_SESSION['messInfo'] = 'Can\'t save picture.';
+            header('Location: ' . $fullDomain . '/mounting');
+            exit;
+        }
     }
     else{
         $filename = $img;
@@ -30,7 +37,16 @@ if (!empty($_POST['picture']) && !empty($_POST['filterpic'])){
             $filtername = 'filters/fox.png';
         }
 
-        put_image($login, $filename, $filtername);
+        $check = put_image($login, $filename, $filtername);
+        if ($check === 'error'){
+            $_SESSION['messInfo'] = 'Error.';
+        }
+        else if ($check === 'pb montage'){
+            $_SESSION['messInfo'] = 'Can\'t save picture.';
+        }
+        else{
+            $_SESSION['messInfo'] = 'Picture successfully saved!';
+        }
     }
 }
 

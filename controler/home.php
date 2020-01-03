@@ -9,7 +9,7 @@ if ($method == 'GET'){
     require($root . '/views/home.php');
 }
 
-if ($method == 'POST'){
+else if ($method == 'POST'){
 
     if (!empty($_FILES['download'])){
         $img = $_FILES['download'];
@@ -20,7 +20,7 @@ if ($method == 'POST'){
             $num = rand(0, 100000);
             $tmp_name = $img['tmp_name'];
             $name = $_SESSION['login'] . '_' . $num . '.png';
-            if (fileExists($name) != 0){
+            if (fileExists($name) != 0 && fileExists($name) !== 'error'){
                 $num = rand(0, 500);
                 $new = '_' . $num . '.png';
                 $name = str_replace('.png', $new, $name);
@@ -34,4 +34,7 @@ if ($method == 'POST'){
     exit;
 }
 
+else{
+    echo '404 Error';
+}
 ?>
