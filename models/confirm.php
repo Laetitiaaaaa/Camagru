@@ -2,40 +2,64 @@
 include($root . '/config/database.php');
 
 function matchLogNum($login, $num){
-    $conn = connexion();
-    $sql = "SELECT * FROM `user_sub` WHERE `login` = '{$login}' AND `num` = '{$num}'";
-    $req = $conn->query($sql);
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    $conn = null;
-    if ($data){
-        return true;
+    try{
+        $conn = connexion();
+        $sql = "SELECT * FROM `user_sub` WHERE `login` = '{$login}' AND `num` = '{$num}'";
+        $req = $conn->query($sql);
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        $conn = null;
+        if ($data){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
-    else{
-        return false;
+    catch(PDOException $err){
+        return 'error';
     }
 }
 
 function suppUsersub($login){
-    $conn = connexion();
-    $sql = "DELETE FROM `user_sub` WHERE `login` = '{$login}'";
-    $conn->query($sql);
-    $conn = null;
+    try{
+        $conn = connexion();
+        $sql = "DELETE FROM `user_sub` WHERE `login` = '{$login}'";
+        $conn->query($sql);
+        $conn = null;
+        return true;
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 function get_user($login){
-    $conn = connexion();
-    $sql = "SELECT * FROM `user_sub` WHERE `login` = '{$login}'";
-    $req = $conn->query($sql);
-    $data = $req->fetchAll(PDO::FETCH_ASSOC);
-    return $data[0];    
+    try{
+        $conn = connexion();
+        $sql = "SELECT * FROM `user_sub` WHERE `login` = '{$login}'";
+        $req = $conn->query($sql);
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data[0];
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 function addUser($login){
-    $conn = connexion();
-    $user = get_user($login);
-    suppUsersub($login);
-    $sql = "INSERT INTO `user` (`login`, `mail`, `password`) VALUES ('{$user['login']}', '{$user['mail']}', '{$user['password']}');";
-    $conn->query($sql);
+    try{
+        $conn = connexion();
+        $user = get_user($login);
+        if (suppUsersub($login) === 'error' || $user === 'error'){
+            return 'error';
+        }
+        $sql = "INSERT INTO `user` (`login`, `mail`, `password`) VALUES ('{$user['login']}', '{$user['mail']}', '{$user['password']}');";
+        $conn->query($sql);
+        return true;        
+    }
+    catch(PDOException $err){
+        return 'error';
+    }
 }
 
 ?>
