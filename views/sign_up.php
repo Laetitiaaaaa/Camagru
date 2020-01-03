@@ -1,6 +1,11 @@
 <?php include('header.php');?>
 
 <section class="section">
+    
+<div class="columns">
+<div class="column is-3"></div>
+<div class="column is-6">
+
     <div class="container">
 
         <section class="hero is-dark">
@@ -56,6 +61,10 @@
         </div>
         
     </div>
+</div>
+<div class="column is-3"></div>
+</div>
+
 </section>
 
 

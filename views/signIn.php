@@ -1,7 +1,12 @@
 <?php include('header.php');?>
 
 <section class="section">
-    <div class="container" style="width:25%;">
+
+<div class="columns">
+<div class="column is-3"></div>
+<div class="column is-6">
+
+    <div class="container">
 
         <section class="hero is-dark">
             <div class="hero-body">
@@ -47,6 +52,11 @@
         </div>
 
     </div>
+
+</div>
+<div class="column is-3"></div>
+</div>
+
 </section>
 
 <?php include('footer.php'); ?>
