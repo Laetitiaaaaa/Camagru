@@ -1,7 +1,12 @@
 <?php include('header.php');?>
 
 <section class="section">
-    <div class="container" style="width:75%;">
+
+<div class="columns">
+<div class="column is-3"></div>
+<div class="column is-6">
+
+    <div class="container">
 
         <section class="hero is-dark">
             <div class="hero-body">
@@ -16,7 +21,8 @@
         <div class="notification">
             <form name="myAccount" method="post" action="/my-account">
 
-                <div class="column is-half" style="display: inline-block;">
+                <div class="columns">
+                <div class="column is-7">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
                             <input name="login" class="input" type="text" value=<?php echo $_SESSION['login']; ?>>
@@ -27,11 +33,13 @@
                     </div>
                 </div>
 
-                <div style="display: inline-block;">
+                <div class="column is-5">
                     <input name="changeLog" type="submit" class="button is-success" value="Change login">
                 </div>
+                </div>
 
-                <div class="column is-half" style="display: inline-block;">
+                <div class="columns">
+                <div class="column is-7">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
                             <input name="mail" class="input" type="email" value=<?php echo $_SESSION['mail']; ?>>
@@ -42,11 +50,14 @@
                     </div>
                 </div>
 
-                <div style="display: inline-block;">
+
+                <div class="column is-5">
                     <input name="changeMail" type="submit" class="button is-success" value="Change Mail">
                 </div>
+                </div>
 
-                <div class="column is-half" style="display: inline-block;">
+                <div class="columns">
+                <div class="column is-6">
                     <div class="field">
                         <p class="control has-icons-left">
                             <input name="password" class="input" type="password" placeholder="Password">
@@ -57,7 +68,11 @@
                     </div>
                 </div>
 
-                <div class="column is-half" style="display: inline-block;">
+                <div class="column is-6"></div>
+                </div>
+
+                <div class="columns">
+                <div class="column is-6">
                     <div class="field">
                         <p class="control has-icons-left">
                             <input name="verif" class="input" type="password" placeholder="Verification">
@@ -68,11 +83,13 @@
                     </div>
                 </div>
 
-                <div style="display: inline-block;">
+                <div class="column is-6">
                     <input name="changePass" type="submit" class="button is-success" value="Change Password">
                 </div>
+                </div>
 
-                <div class="column is-four-fifth" style="display: inline-block;">
+                <div class="columns">
+                <div class="column is-8">
                     <div class="field">
                         <div class="control">
                             <div class="select is-primary">
@@ -85,14 +102,20 @@
                     </div>
                 </div>
 
-                <div style="display: inline-block;">
+                <div class="column is-4">
                     <input name="pref" type="submit" class="button is-success" value="Change">
+                </div>
                 </div>
 
             </form>
         </div>
         
     </div>
+
+</div>
+<div class="column is-3"></div>
+</div>
+
 </section>
 
 
