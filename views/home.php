@@ -1,29 +1,55 @@
 <?php include('header.php');?>
 
-<div style="border:3px solid pink;">
+<div class="columns">
     
-    <select name="filter" id="filter" onchange="changeFilter()" style="display:block;">
-        <option value="dino">Dino</option>
-        <option value="heart">Heart balloons</option>
-        <option value="eve">Eve (Wall-E)</option>
-        <option value="fox">Fox</option>
-    </select>
+<div class="column is-6">
+<div class="columns">
+<div class="column is-1"></div>
+<div class="column is-10">
 
-    <div id="bluebox" style="display:inline-block; border:3px solid blue;width: 50%;">
+<div class="field">
+  <div class="control">
+    <div class="select is-primary">
+    <select name="filter" id="filter" onchange="changeFilter()">
+      <option value="dino">Dino</option>
+      <option value="heart">Heart balloons</option>
+      <option value="eve">Eve (Wall-E)</option>
+      <option value="fox">Fox</option>
+    </select>
+    </div>
+  </div>
+</div>
+
+    <div id="bluebox">
       
-      <div id="divideo" style="border: 3px solid black; width:100%; position: relative;">
+      <div id="divideo" style="width:100%; position: relative;">
       <?php if (isset($filename) && !empty($filename)){?>
       <img id="imgUploaded" src="<?php echo $filename ?>" alt="file" style="width:100%; position: relative; z-index: 1;">
-      <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;">
+      <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-2%; z-index: 2; width:56%;">
       <?php } ?>
       </div>
       <?php if (isset($filename) && !empty($filename)){ ?>
-      <input type="submit" id="photoButton" onclick="pushPic()" value="Take Picture">
+      <div class="buttons is-centered">
+      <input type="submit" class="button is-success is-rounded" id="photoButton" onclick="pushPic()" value="Take Picture">
+      </div>
       <?php } ?>
     </div>
-    
-    <div id="preview" style="border:3px solid grey; display: inline-block; vertical-align: top; text-align:center; width: 40%;">
+
+</div>
+<div class="column is-1"></div>
+</div>    
+</div>
+
+<div class="column is-6">
+<div class="columns">
+<div class="column is-1"></div>
+<div class="column is-10">
+    <div id="preview">
     </div>
+</div>
+<div class="column is-1"></div>
+</div>
+</div>
 
 </div>
 
@@ -81,18 +107,23 @@ function createElemVideo(){
   img_filter.setAttribute('id', 'putfilter');
   img_filter.setAttribute('src', '/filters/dino.png');
   img_filter.setAttribute('alt', 'dino');
-  img_filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; z-index: 2; width:52%;');
+  img_filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-2%; z-index: 2; width:56%;');
   divideo.appendChild(img_filter);
 
   var canvas = document.createElement('canvas');
   canvas.setAttribute('style', 'display:none;');
   bluebox.appendChild(canvas);
 
+  var div = document.createElement('div');
+  div.setAttribute('class', 'buttons is-centered');
+  bluebox.appendChild(div);
+
   var photoButton = document.createElement('input');
   photoButton.setAttribute('id', 'photoButton');
   photoButton.setAttribute('type', 'submit');
   photoButton.setAttribute('value', 'Take picture');
-  bluebox.appendChild(photoButton);
+  photoButton.setAttribute('class', 'button is-success is-rounded');
+  div.appendChild(photoButton);
 }
 
 function createFormNoCam(){
@@ -101,7 +132,7 @@ function createFormNoCam(){
   var p = document.createElement('p');
   bluebox.insertBefore(p, bluebox.childNodes[0]);
 
-  var text = document.createTextNode('Download a picture');
+  var text = document.createTextNode('Warning: if your png picture is not 640 x 480, we can\'t guarantee the result.');
   p.appendChild(text);
 
   var form = document.createElement('form');
@@ -148,10 +179,9 @@ function postData(dataPic, dataSel){
 function changeFilter() {
   var filter = document.getElementById('putfilter');
   var choice = document.getElementById('filter').value;
-  alert(choice);
   if (choice == 'dino'){
     filter.setAttribute('alt', 'dino');
-    filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-3.9%; width:52%; z-index: 2;');
+    filter.setAttribute('style', 'position:absolute; right:-1.5%; bottom:-2%; width:56%; z-index: 2;');
     filter.setAttribute('src', '/filters/dino.png');
   }
   else if (choice == 'heart'){
@@ -161,12 +191,12 @@ function changeFilter() {
   }
   else if (choice == 'eve'){
     filter.setAttribute('alt', 'eve');
-    filter.setAttribute('style', 'position:absolute; left:-6%; bottom:-5.5%; width:52%; z-index: 2;');
+    filter.setAttribute('style', 'position:absolute; left:-6%; bottom:-4.2%; width:52%; z-index: 2;');
     filter.setAttribute('src', '/filters/eveuh.png');
   }
   else if (choice == 'fox'){
     filter.setAttribute('alt', 'fox');
-    filter.setAttribute('style', 'position:absolute; right:1%; bottom:-0.7%; height:60%; z-index: 2;');
+    filter.setAttribute('style', 'position:absolute; right:1%; bottom:1%; height:56%; z-index: 2;');
     filter.setAttribute('src', '/filters/fox.png');
   }
 }
@@ -177,19 +207,13 @@ function display_picture(){
   if (httpRequest.readyState === XMLHttpRequest.DONE){
     if (httpRequest.status === 200){
       subject = httpRequest.response;
-      alert(subject);
       pattern = RegExp('gallery\/.*\.png');
       ans = subject.match(pattern);
       
       if (ans != null){
-        console.log('ans =');
-        console.log(ans[0]);
         addImg(ans[0]);
       }
     
-    }
-    else{
-      alert('pb request');
     }
   }
 }
@@ -198,7 +222,7 @@ function addImg(src){
   var list = document.getElementById('preview');
 
   var div = document.createElement('div');
-  div.setAttribute('style', 'width:80%; border: 3px solid red;');
+  div.setAttribute('style', 'width:80%');
   list.insertBefore(div, list.childNodes[0]);
 
   var img = document.createElement('img');

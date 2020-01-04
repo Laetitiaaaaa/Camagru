@@ -38,15 +38,6 @@ if (!empty($_POST['picture']) && !empty($_POST['filterpic'])){
         }
 
         $check = put_image($login, $filename, $filtername);
-        if ($check === 'error'){
-            $_SESSION['messInfo'] = 'Error.';
-        }
-        else if ($check === 'pb montage'){
-            $_SESSION['messInfo'] = 'Can\'t save picture.';
-        }
-        else{
-            $_SESSION['messInfo'] = 'Picture successfully saved!';
-        }
     }
 }
 
