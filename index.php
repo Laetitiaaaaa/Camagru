@@ -8,7 +8,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $root = dirname(__FILE__);
 
 //*************authentification******************** */
-if ($_SESSION['logon'] == 1){
+if (isset($_SESSION['logon']) && $_SESSION['logon'] == 1){
     $auth = true;
 }
 else{

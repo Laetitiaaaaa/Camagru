@@ -17,7 +17,7 @@ else if ($method == 'POST'){
             $_SESSION['messInfo'] = "Mail can't be sent.";
         }
         else if ($change === 'error mail'){
-            $_SESSION['messInfo'] = 'Mail already exists.';
+            $_SESSION['messInfo'] = 'Mail doesn\'t exists.';
         }
         else{
             $_SESSION['messInfo'] = 'Error.';

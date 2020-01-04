@@ -8,6 +8,7 @@
     <div class="column is-1"></div>
     <div class="column is-10">
         <div class="columns is-multiline is-centered">
+        <?php if (($photo_tab) != NULL){?>
         <?php foreach ($pageGallery as $photo){?>
             <div class="column is-one-third">
                 <div class="card">
@@ -19,6 +20,7 @@
                 </div>
             </div>
         <?php }?>
+        <?php } ?>
         </div>
     </div>
     <div class="column is-1"></div>
