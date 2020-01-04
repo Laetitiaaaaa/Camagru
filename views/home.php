@@ -2,54 +2,56 @@
 
 <div class="columns">
     
-<div class="column is-6">
-<div class="columns">
-<div class="column is-1"></div>
-<div class="column is-10">
+    <div class="column is-6">
+        <div class="columns">
+            <div class="column is-1"></div>
+            <div class="column is-10">
 
-<div class="field">
-  <div class="control">
-    <div class="select is-primary">
-    <select name="filter" id="filter" onchange="changeFilter()">
-      <option value="dino">Dino</option>
-      <option value="heart">Heart balloons</option>
-      <option value="eve">Eve (Wall-E)</option>
-      <option value="fox">Fox</option>
-    </select>
-    </div>
-  </div>
-</div>
+                <div class="field">
+                    <div class="control">
+                        <div class="select is-primary">
+                            <select name="filter" id="filter" onchange="changeFilter()">
+                                <option value="dino">Dino</option>
+                                <option value="heart">Heart balloons</option>
+                                <option value="eve">Eve (Wall-E)</option>
+                                <option value="fox">Fox</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
 
-    <div id="bluebox">
+                <div id="bluebox">
       
-      <div id="divideo" style="width:100%; position: relative;">
-      <?php if (isset($filename) && !empty($filename)){?>
-      <img id="imgUploaded" src="<?php echo $filename ?>" alt="file" style="width:100%; position: relative; z-index: 1;">
-      <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-2%; z-index: 2; width:56%;">
-      <?php } ?>
-      </div>
-      <?php if (isset($filename) && !empty($filename)){ ?>
-      <div class="buttons is-centered">
-      <input type="submit" class="button is-success is-rounded" id="photoButton" onclick="pushPic()" value="Take Picture">
-      </div>
-      <?php } ?>
+                    <div id="divideo" style="width:100%; position: relative;">
+                        
+                        <?php if (isset($filename) && !empty($filename)){?>
+                            <img id="imgUploaded" src="<?php echo $filename ?>" alt="file" style="width:100%; position: relative; z-index: 1;">
+                                <img id="putfilter" src="/filters/dino.png" alt="dino" style="position:absolute; right:-1.5%; bottom:-2%; z-index: 2; width:56%;">
+                        <?php } ?>
+      
+                    </div>
+                    <?php if (isset($filename) && !empty($filename)){ ?>
+                        <div class="buttons is-centered">
+                            <input type="submit" class="button is-success is-rounded" id="photoButton" onclick="pushPic()" value="Take Picture">
+                        </div>
+                    <?php } ?>
+                </div>
+
+            </div>
+            <div class="column is-1"></div>
+        </div>    
     </div>
 
-</div>
-<div class="column is-1"></div>
-</div>    
-</div>
-
-<div class="column is-6">
-<div class="columns">
-<div class="column is-1"></div>
-<div class="column is-10">
-    <div id="preview">
+    <div class="column is-6">
+        <div class="columns">
+            <div class="column is-1"></div>
+            <div class="column is-10">
+                <div id="preview">
+                </div>
+            </div>
+            <div class="column is-1"></div>
+        </div>
     </div>
-</div>
-<div class="column is-1"></div>
-</div>
-</div>
 
 </div>
 
@@ -84,17 +86,6 @@ navigator.mediaDevices.getUserMedia(constraints)
   });
 });
 
-function pushPic(){
-  var path = document.getElementById('imgUploaded').src;
-  var regex = /http\:\/\/localhost\:8080\//;
-  var dataPic = path.replace(regex, '');
-  var dataSel = select.value;
-  console.log(dataPic);
-  console.log('SELECT');
-  console.log(dataSel);
-  postData(dataPic, dataSel);
-}
-
 function createElemVideo(){
   var divideo = document.getElementById('divideo');
   var bluebox = document.getElementById('bluebox');
@@ -124,6 +115,26 @@ function createElemVideo(){
   photoButton.setAttribute('value', 'Take picture');
   photoButton.setAttribute('class', 'button is-success is-rounded');
   div.appendChild(photoButton);
+}
+
+function postData(dataPic, dataSel){
+    var formData = new FormData();
+    formData.append('picture', dataPic);
+    formData.append('filterpic', dataSel);
+    httpRequest.open('POST', '/add-filter');
+    httpRequest.send(formData);
+}
+
+function takepicture(){
+    var canvas = document.querySelector('canvas');
+    var video = document.querySelector('video');
+
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    
+    var data = canvas.toDataURL();
+    return data;
 }
 
 function createFormNoCam(){
@@ -156,25 +167,18 @@ function createFormNoCam(){
   form.appendChild(submit);
 }
 
-function takepicture(){
-    var canvas = document.querySelector('canvas');
-    var video = document.querySelector('video');
 
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    
-    var data = canvas.toDataURL();
-    return data;
+function pushPic(){
+  var path = document.getElementById('imgUploaded').src;
+  var regex = /http\:\/\/localhost\:8080\//;
+  var dataPic = path.replace(regex, '');
+  var dataSel = select.value;
+  console.log(dataPic);
+  console.log('SELECT');
+  console.log(dataSel);
+  postData(dataPic, dataSel);
 }
 
-function postData(dataPic, dataSel){
-    var formData = new FormData();
-    formData.append('picture', dataPic);
-    formData.append('filterpic', dataSel);
-    httpRequest.open('POST', '/add-filter');
-    httpRequest.send(formData);
-}
 
 function changeFilter() {
   var filter = document.getElementById('putfilter');
@@ -201,7 +205,9 @@ function changeFilter() {
   }
 }
 
+
 httpRequest.onreadystatechange = display_picture;
+
 
 function display_picture(){
   if (httpRequest.readyState === XMLHttpRequest.DONE){
